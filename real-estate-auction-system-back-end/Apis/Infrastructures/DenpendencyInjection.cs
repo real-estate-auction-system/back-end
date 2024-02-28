@@ -15,9 +15,16 @@ namespace Infrastructures
         public static IServiceCollection AddInfrastructuresService(this IServiceCollection services, string databaseConnection)
         {
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IRealEstateRepository, RealEstateRepository>();
+
 
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IRealEstateService, RealEstateService>();
+
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
             services.AddSingleton<ICurrentTime, CurrentTime>();
 
             // ATTENTION: if you do migration please check file README.md

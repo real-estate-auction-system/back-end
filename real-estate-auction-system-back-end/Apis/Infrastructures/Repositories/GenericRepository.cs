@@ -9,14 +9,10 @@ namespace Infrastructures.Repositories
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         protected DbSet<TEntity> _dbSet;
-        private readonly ICurrentTime _timeService;
-        private readonly IClaimsService _claimsService;
 
-        public GenericRepository(AppDbContext context, ICurrentTime timeService, IClaimsService claimsService)
+        public GenericRepository(AppDbContext context)
         {
             _dbSet = context.Set<TEntity>();
-            _timeService = timeService;
-            _claimsService = claimsService;
         }
         public Task<List<TEntity>> GetAllAsync() => _dbSet.ToListAsync();
 

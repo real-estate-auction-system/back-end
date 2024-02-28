@@ -7,6 +7,8 @@ namespace Application
 
         public IAccountRepository AccountRepository { get; }
 
+        public IRealEstateRepository RealEstateRepository { get; }
+
         public Task<int> SaveChangeAsync();
     }
 }

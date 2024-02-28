@@ -9,12 +9,8 @@ namespace Infrastructures.Repositories
     {
         private readonly AppDbContext _dbContext;
 
-        public AccountRepository(AppDbContext dbContext,
-            ICurrentTime timeService,
-            IClaimsService claimsService)
-            : base(dbContext,
-                  timeService,
-                  claimsService)
+        public AccountRepository(AppDbContext dbContext)
+            : base(dbContext)
         {
             _dbContext = dbContext;
         }
