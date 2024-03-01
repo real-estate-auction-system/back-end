@@ -17,6 +17,5 @@ namespace Application.ViewModels.UserViewModels
         public string Password { get; set; }
         public DateTime DoB { get; set; }
         public Gender Gender { get; set; }
-        public int RoleId { get; set; }
     }
 }

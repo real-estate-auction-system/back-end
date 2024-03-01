@@ -16,11 +16,11 @@ namespace Infrastructures
         {
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IRealEstateRepository, RealEstateRepository>();
-
+            services.AddScoped<INewsRepository, NewsRepository>();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRealEstateService, RealEstateService>();
-
+            services.AddScoped<INewsService, NewsService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
