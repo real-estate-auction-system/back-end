@@ -30,7 +30,7 @@ namespace Infrastructures.Services
             return user.GenerateJsonWebToken(_configuration.JWTSecretKey, _currentTime.GetCurrentTime());
         }
 
-        public async Task RegisterAsync(UserLoginDTO userObject)
+        public async Task RegisterAsync(UserRegisterDTO userObject)
         {
             // check username exited
             var isExited = await _unitOfWork.AccountRepository.CheckUserNameExited(userObject.UserName);
@@ -43,7 +43,13 @@ namespace Infrastructures.Services
             var newAccount = new Account
             {
                 UserName = userObject.UserName,
-                Password = userObject.Password.Hash()
+                Password = userObject.Password.Hash(),
+                DoB = userObject.DoB,
+                Email = userObject.Email,
+                FullName = userObject.FullName,
+                Gender = userObject.Gender,
+                Phone = userObject.Phone,
+                RoleId = userObject.RoleId,
             };
 
             await _unitOfWork.AccountRepository.AddAsync(newAccount);

@@ -1,8 +1,8 @@
-﻿using Application.ViewModels.ChemicalsViewModels;
+﻿
 using AutoMapper;
 using Application.Commons;
 using Domain.Entities;
-
+using Application.ViewModels.RealEstateViewModels;
 namespace Infrastructures.Mappers
 {
     public class MapperConfigurationsProfile : Profile
@@ -10,6 +10,7 @@ namespace Infrastructures.Mappers
         public MapperConfigurationsProfile()
         {
             CreateMap(typeof(Pagination<>), typeof(Pagination<>));
+            CreateMap<RealEstate, RealEstateModel>().ReverseMap();
         }
     }
 }

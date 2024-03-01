@@ -10,6 +10,6 @@ namespace Application.Interfaces
     public interface IAccountService
     {
         Task<string> LoginAsync(UserLoginDTO userObject);
-        Task RegisterAsync(UserLoginDTO userObject);
+        Task RegisterAsync(UserRegisterDTO userObject);
     }
 }

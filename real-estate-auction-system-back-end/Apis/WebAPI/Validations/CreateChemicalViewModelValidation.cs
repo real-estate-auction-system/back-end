@@ -1,4 +1,4 @@
-﻿using Application.ViewModels.ChemicalsViewModels;
+﻿/*using Application.ViewModels.ChemicalsViewModels;
 using FluentValidation;
 
 namespace WebAPI.Validations
@@ -11,3 +11,4 @@ namespace WebAPI.Validations
         }
     }
 }
+*/
