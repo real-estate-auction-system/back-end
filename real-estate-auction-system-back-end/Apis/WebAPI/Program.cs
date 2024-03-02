@@ -31,6 +31,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     register with singleton life time
     now we can use dependency injection for AppConfiguration
 */
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                      });
+});
 builder.Services.AddSingleton(configuration);
 builder.Services.AddSwaggerGen(opt =>
 {

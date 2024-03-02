@@ -1,4 +1,5 @@
-﻿using Application.ViewModels.UserViewModels;
+﻿using Application.Commons;
+using Application.ViewModels.UserViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Application.Interfaces
 {
     public interface IAccountService
     {
-        Task<string> LoginAsync(UserLoginDTO userObject);
+        Task<JwtResponse> LoginAsync(UserLoginDTO userObject);
         Task RegisterAsync(UserRegisterDTO userObject);
     }
 }

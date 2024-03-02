@@ -24,10 +24,15 @@ namespace Infrastructures.Services
             _configuration= configuration;
         }
 
-        public async Task<string> LoginAsync(UserLoginDTO userObject)
+        public async Task<JwtResponse> LoginAsync(UserLoginDTO userObject)
         {
             var user = await _unitOfWork.AccountRepository.GetUserByUserNameAndPasswordHash(userObject.UserName, userObject.Password.Hash());
-            return user.GenerateJsonWebToken(_configuration.JWTSecretKey, _currentTime.GetCurrentTime());
+            return new JwtResponse
+            {
+                token = user.GenerateJsonWebToken(_configuration.JWTSecretKey, _currentTime.GetCurrentTime()),
+                role = user.RoleId
+            };
+           
         }
 
         public async Task RegisterAsync(UserRegisterDTO userObject)
