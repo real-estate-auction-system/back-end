@@ -16,5 +16,4 @@ namespace Infrastructures.Mappers
             CreateMap<News, NewsModel>().ReverseMap();
         }
     }
-    }
 }

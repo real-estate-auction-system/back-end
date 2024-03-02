@@ -8,11 +8,13 @@ namespace Infrastructures.Repositories
     public class AccountRepository : GenericRepository<Account>, IAccountRepository
     {
         private readonly AppDbContext _dbContext;
+        private readonly IClaimsService _claimsService;
 
-        public AccountRepository(AppDbContext dbContext)
+        public AccountRepository(AppDbContext dbContext, IClaimsService claimsService)
             : base(dbContext)
         {
             _dbContext = dbContext;
+            _claimsService = claimsService;
         }
 
         public Task<bool> CheckUserNameExited(string username) => _dbContext.Accounts.AnyAsync(u => u.UserName == username);

@@ -16,7 +16,7 @@ namespace Application.Utils
             {
                 new Claim(ClaimTypes.NameIdentifier ,account.UserName),
                 new Claim(ClaimTypes.Role ,account.RoleId.ToString()),
-                new Claim("accountId",account.Id.ToString()),
+                new Claim("Id",account.Id.ToString()),
             };
             var token = new JwtSecurityToken(
                 claims: claims,
