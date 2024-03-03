@@ -17,6 +17,7 @@ namespace Infrastructures
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IRealEstateRepository, RealEstateRepository>();
             services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<IAuctionRepository, AuctionRepository>();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRealEstateService, RealEstateService>();
@@ -24,6 +25,8 @@ namespace Infrastructures
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            services.AddSingleton<IFirebaseService, FirebaseService>();
+            services.AddScoped<FirebaseService>();
 
             services.AddSingleton<ICurrentTime, CurrentTime>();
 

@@ -4,6 +4,7 @@ using Infrastructures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructures.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240303000630_NewMigration1")]
+    partial class NewMigration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,19 +80,23 @@ namespace Infrastructures.Migrations
                     b.Property<int>("AuctionStatus")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatorId")
+                    b.Property<int>("CreatorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EndTime")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ManagedId")
+                    b.Property<int>("ManagedId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -188,15 +195,13 @@ namespace Infrastructures.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AuctionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateSubmited")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DateSubmited")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -223,8 +228,6 @@ namespace Infrastructures.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuctionId");
 
                     b.HasIndex("TypeOfRealEstateId");
 
@@ -261,7 +264,7 @@ namespace Infrastructures.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccountId")
+                    b.Property<int>("AuctionId")
                         .HasColumnType("int");
 
                     b.Property<double>("CurrentPrice")
@@ -275,7 +278,7 @@ namespace Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AuctionId");
 
                     b.HasIndex("RealEstateId");
 
@@ -359,19 +362,11 @@ namespace Infrastructures.Migrations
 
             modelBuilder.Entity("Domain.Entities.RealEstate", b =>
                 {
-                    b.HasOne("Domain.Entities.Auction", "Auction")
-                        .WithMany("RealEstates")
-                        .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.TypeOfRealEstate", "TypeOfRealEstate")
                         .WithMany("RealEstates")
                         .HasForeignKey("TypeOfRealEstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Auction");
 
                     b.Navigation("TypeOfRealEstate");
                 });
@@ -389,9 +384,9 @@ namespace Infrastructures.Migrations
 
             modelBuilder.Entity("Domain.Entities.RealtimeAuction", b =>
                 {
-                    b.HasOne("Domain.Entities.Account", "Account")
+                    b.HasOne("Domain.Entities.Auction", "Auction")
                         .WithMany()
-                        .HasForeignKey("AccountId")
+                        .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -401,14 +396,9 @@ namespace Infrastructures.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Account");
+                    b.Navigation("Auction");
 
                     b.Navigation("RealEstate");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Auction", b =>
-                {
-                    b.Navigation("RealEstates");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealEstate", b =>

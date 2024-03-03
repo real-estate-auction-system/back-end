@@ -10,11 +10,11 @@ namespace Domain.Entities
     public class Auction : BaseEntity
     {
         public string Title { get; set; }
-        public string Type { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public AuctionStatus AuctionStatus { get; set; }
-        public int CreatorId { get; set; }
-        public int ManagedId { get; set; }
+        public int? CreatorId { get; set; }
+        public int? ManagedId { get; set; }
+        public virtual IList<RealEstate> RealEstates { get; set; }
     }
 }

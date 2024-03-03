@@ -12,7 +12,7 @@ namespace Domain.Entities
         public double CurrentPrice { get; set; }
         public int RealEstateId { get; set; }
         public virtual RealEstate RealEstate { get; set; }
-        public int AuctionId { get; set; }
-        public virtual Auction Auction { get; set; }
+        public int AccountId { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

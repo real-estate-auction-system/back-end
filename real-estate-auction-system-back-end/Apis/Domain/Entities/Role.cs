@@ -9,6 +9,6 @@ namespace Domain.Entities
     public class Role : BaseEntity
     {
         public string Name { get; set; }
-        public IList<Account> Accounts { get; set; }
+        public virtual IList<Account> Accounts { get; set; }
     }
 }

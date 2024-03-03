@@ -12,6 +12,7 @@ namespace Application.ViewModels.RealEstateViewModels
         public string Code { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
+        public double StartPrice { get; set; }
         public double Acreage { get; set; }
         public string Address { get; set; }
         public string Province { get; set; }
