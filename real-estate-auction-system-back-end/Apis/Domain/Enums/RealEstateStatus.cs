@@ -8,6 +8,6 @@ namespace Domain.Enums
 {
     public enum RealEstateStatus
     {
-        notYet = 1, onGoing = 2, Finished = 3
+        notYet = 1, onGoing = 2, finished = 3, noUserBuy = 4
     }
 }

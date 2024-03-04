@@ -1,5 +1,9 @@
-﻿using Application.Repositories;
+﻿using Application;
+using Application.Interfaces;
+using Application.Repositories;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +14,18 @@ namespace Infrastructures.Repositories
 {
     public class RealtimeAuctionRepository : GenericRepository<RealtimeAuction>, IRealtimeAuctionRepository
     {
-        public RealtimeAuctionRepository(AppDbContext dbContext)
+        private readonly AppDbContext _dbContext;
+
+        public RealtimeAuctionRepository(AppDbContext dbContext, IClaimsService claimsService)
             : base(dbContext)
         {
+            _dbContext = dbContext;
+        }
+        public async Task<RealtimeAuction> GetLastAuction(int realEstateId, double finalPrice)
+        {
+
+            var auction = await _dbContext.RealtimeAuctions.Where(x => x.RealEstateId == realEstateId && x.CurrentPrice == finalPrice).ToListAsync();
+            return auction[0];
         }
     }
 }

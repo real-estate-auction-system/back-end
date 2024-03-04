@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace Application.Interfaces
     {
         Task AddRealtimeAuction(int realEstateId, double currentPrice, int accountId);
         Task StartAuction(int realEstateId);
+        Task<RealtimeAuction> GetLastAuction(int realEstateId, double finalPrice);
     }
 }

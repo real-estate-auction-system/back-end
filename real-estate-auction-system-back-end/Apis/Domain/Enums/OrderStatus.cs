@@ -8,5 +8,6 @@ namespace Domain.Enums
 {
     public enum OrderStatus
     {
+        waiting = 1 , finished = 2
     }
 }

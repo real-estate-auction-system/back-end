@@ -14,16 +14,39 @@ namespace WebAPI.Controllers
     {
         private readonly IRealtimeAuctionService _realtimeAuctionService;
         private readonly IRealEstateService _realEstateService;
+        private readonly IOrderService _orderService;
         private readonly IClaimsService _claimsService;
         private readonly IHubContext<AuctionHub> _hubContext;
         public static int AuctionDurationSeconds;
         public static double CurrentPrice = 0;
-        public RealtimeAuctionController(IRealtimeAuctionService realtimeAuctionService, IClaimsService claimsService, IHubContext<AuctionHub> hubContext, IRealEstateService realEstateService)
+        public RealtimeAuctionController(IRealtimeAuctionService realtimeAuctionService, IOrderService orderService, IClaimsService claimsService, IHubContext<AuctionHub> hubContext, IRealEstateService realEstateService)
         {
             _realtimeAuctionService = realtimeAuctionService;
+            _orderService = orderService;
             _claimsService = claimsService;
             _hubContext = hubContext;
             _realEstateService = realEstateService;
+        }
+
+        [HttpGet("StartAuction")]
+        public async Task<IActionResult> CheckAuction(int realEstateId)
+        {
+            try
+            {
+                var realEstate = await _realEstateService.GetByIdAsync(realEstateId);
+                if (realEstate == null)
+                {
+                    throw new Exception("Khong tim thay san pham");
+                }
+                if (realEstate.RealEstateStatus == Domain.Enums.RealEstateStatus.onGoing)
+                    return Ok(true);
+                else
+                    return Ok(false);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("StartAuction")]
@@ -49,8 +72,21 @@ namespace WebAPI.Controllers
                 }
                 if (CurrentPrice != 0)
                 {
-                    //get the real auction where its price = current price
-                    //make a new order here
+                    var lastAuction = await _realtimeAuctionService.GetLastAuction(realEstateId, CurrentPrice);
+                    await _orderService.AddAsync(new Order { 
+                        AccountId = lastAuction.AccountId,
+                        OrderDate = DateTime.Now,
+                         Price = lastAuction.CurrentPrice,
+                         status = Domain.Enums.OrderStatus.waiting,
+                         RealEstateId = realEstateId
+                    });
+                    realEstate.RealEstateStatus = Domain.Enums.RealEstateStatus.finished;
+                    await _realEstateService.Update(realEstate);
+                }
+                else
+                {
+                    realEstate.RealEstateStatus = Domain.Enums.RealEstateStatus.noUserBuy;
+                    await _realEstateService.Update(realEstate);
                 }
                 await _hubContext.Clients.All.SendAsync("AuctionEnded", AuctionDurationSeconds, CurrentPrice);
                 return Ok();
@@ -66,7 +102,7 @@ namespace WebAPI.Controllers
         {
             AuctionDurationSeconds = 15;
             CurrentPrice = currentPrice;
-            await _realtimeAuctionService.AddRealtimeAuction(realEstateId, currentPrice, _claimsService.GetCurrentUserId);  
+            await _realtimeAuctionService.AddRealtimeAuction(realEstateId, currentPrice, _claimsService.GetCurrentUserId);
             return Ok();
         }
     }

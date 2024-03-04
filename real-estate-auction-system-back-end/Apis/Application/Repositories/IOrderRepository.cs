@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Repositories
 {
-    public interface IRealtimeAuctionRepository : IGenericRepository<RealtimeAuction>
+    public interface IOrderRepository : IGenericRepository<Order>
     {
-        Task<RealtimeAuction> GetLastAuction(int realEstateId, double finalPrice);
     }
 }

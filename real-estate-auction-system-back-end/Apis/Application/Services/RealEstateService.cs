@@ -43,7 +43,10 @@ namespace Application.Services
             return await _unitOfWork.RealEstateRepository.GetByIdAsync(id);
         }
 
-        public void Update(RealEstate realEstate) => _unitOfWork.RealEstateRepository.Update(realEstate);
+        public async Task Update(RealEstate realEstate) {
+            _unitOfWork.RealEstateRepository.Update(realEstate);
+            await _unitOfWork.SaveChangeAsync();
+        } 
 
     }
 }

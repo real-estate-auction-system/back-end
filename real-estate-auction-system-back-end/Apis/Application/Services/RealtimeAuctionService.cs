@@ -48,5 +48,8 @@ namespace Application.Services
             _unitOfWork.RealEstateRepository.Update(realEstate);
             await _unitOfWork.SaveChangeAsync();
         }
+
+        public async Task<RealtimeAuction> GetLastAuction(int realEstateId, double finalPrice)
+        => await _unitOfWork.RealtimeAuctionRepository.GetLastAuction(realEstateId, finalPrice);
     }
 }
