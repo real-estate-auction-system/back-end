@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Entities
@@ -18,11 +20,14 @@ namespace Domain.Entities
         public string Description { get; set; }
         public DateTime DateSubmited { get; set; }
         public bool IsAvailable { get; set; }
+       
+        public RealEstateStatus RealEstateStatus { get; set; } = RealEstateStatus.notYet;
         public virtual IList<RealEstateImage> RealEstateImages { get; set; }
         public int AccountId { get; set; }
         public int TypeOfRealEstateId { get; set; }
         public virtual TypeOfRealEstate TypeOfRealEstate { get; set; }
         public int AuctionId { get; set; }
+        [JsonIgnore]
         public virtual Auction Auction { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using Application.Interfaces;
+using AutoMapper;
+using Domain.Entities;
+using Firebase.Auth.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class AuctionService
+    public class AuctionService : IAuctionService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -15,6 +18,11 @@ namespace Application.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+        public async Task<Auction?> GetTodayAuction()
+        {
+            var auction = await _unitOfWork.AuctionRepository.GetTodayAuction();
+            return auction;
         }
     }
 }

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Repositories
 {
-    public interface IAuctionRepository : IGenericRepository<Auction>
+    public interface IRealtimeAuctionRepository : IGenericRepository<RealtimeAuction>
     {
-        Task<Auction?> GetTodayAuction();
     }
 }

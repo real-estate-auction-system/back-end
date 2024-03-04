@@ -1,5 +1,7 @@
-﻿using Application.Repositories;
+﻿using Application.Interfaces;
+using Application.Repositories;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,17 @@ namespace Infrastructures.Repositories
 {
     public class AuctionRepository : GenericRepository<Auction>, IAuctionRepository
     {
-        public AuctionRepository(AppDbContext dbContext)
+        private readonly AppDbContext _dbContext;
+
+        public AuctionRepository(AppDbContext dbContext, IClaimsService claimsService)
             : base(dbContext)
         {
+            _dbContext = dbContext;
+        }
+        public async Task<Auction?> GetTodayAuction()
+        {
+            var auction = await _dbContext.Auctions.Where(x => x.StartTime.Date == new DateTime(2024, 3, 3) /*DateTime.Now.Date*/).Include(x => x.RealEstates).FirstOrDefaultAsync();
+            return auction;
         }
     }
 }

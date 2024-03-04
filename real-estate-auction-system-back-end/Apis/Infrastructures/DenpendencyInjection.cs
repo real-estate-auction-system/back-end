@@ -18,10 +18,13 @@ namespace Infrastructures
             services.AddScoped<IRealEstateRepository, RealEstateRepository>();
             services.AddScoped<INewsRepository, NewsRepository>();
             services.AddScoped<IAuctionRepository, AuctionRepository>();
-
+            services.AddScoped<IRealtimeAuctionRepository, RealtimeAuctionRepository>();
+            
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRealEstateService, RealEstateService>();
             services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<IAuctionService, AuctionService>();
+            services.AddScoped<IRealtimeAuctionService, RealtimeAuctionService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -11,6 +11,9 @@ namespace Application
 
         public INewsRepository NewsRepository { get; }
 
+        public IAuctionRepository AuctionRepository { get; }
+
+        public IRealtimeAuctionRepository RealtimeAuctionRepository { get; }
         public Task<int> SaveChangeAsync();
     }
 }

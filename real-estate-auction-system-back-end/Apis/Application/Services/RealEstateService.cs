@@ -38,9 +38,9 @@ namespace Application.Services
             return await _unitOfWork.RealEstateRepository.GetAllAsync();
         }
 
-        public Task<RealEstate?> GetByIdAsync(int id)
+        public async Task<RealEstate?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.RealEstateRepository.GetByIdAsync(id);
         }
 
         public void Update(RealEstate realEstate) => _unitOfWork.RealEstateRepository.Update(realEstate);

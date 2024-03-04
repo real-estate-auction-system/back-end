@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Repositories
+namespace Application.Interfaces
 {
-    public interface IAuctionRepository : IGenericRepository<Auction>
+    public interface IAuctionService
     {
         Task<Auction?> GetTodayAuction();
     }
