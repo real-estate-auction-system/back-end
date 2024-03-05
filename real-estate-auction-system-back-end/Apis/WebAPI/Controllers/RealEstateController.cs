@@ -76,5 +76,12 @@ namespace WebAPI.Controllers
             
             return NoContent();
         }
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> DeleteRealEstate([FromRoute]int id)
+        {
+            bool estateRemoved = false;
+            return Ok();
+        }
     }
 }

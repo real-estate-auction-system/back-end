@@ -31,8 +31,8 @@ namespace Application.Services
             realEstate.AuctionId = 1;
             await _unitOfWork.RealEstateRepository.AddAsync(realEstate);
             await _unitOfWork.SaveChangeAsync();
-        }
-
+        }       
+       
         public async Task<List<RealEstate>> GetAll()
         {
             return await _unitOfWork.RealEstateRepository.GetAllAsync();
@@ -43,7 +43,17 @@ namespace Application.Services
             return await _unitOfWork.RealEstateRepository.GetByIdAsync(id);
         }
 
-        public void Update(RealEstate realEstate) => _unitOfWork.RealEstateRepository.Update(realEstate);
+        public void Update(RealEstate realEstate)
+        {
+            _unitOfWork.RealEstateRepository.Update(realEstate);
+            _unitOfWork.SaveChangeAsync();
+        }
+        public void Delete(RealEstate realEstate)
+        {
+            _unitOfWork.RealEstateRepository.SoftRemove(realEstate);
+            _unitOfWork.SaveChangeAsync();
+        }
+
 
     }
 }

@@ -31,7 +31,7 @@ namespace Infrastructures.Repositories
         public void SoftRemove(TEntity entity)
         {
 
-            _dbSet.Update(entity);
+            _dbSet.Remove(entity);
         }
 
         public void Update(TEntity entity)
