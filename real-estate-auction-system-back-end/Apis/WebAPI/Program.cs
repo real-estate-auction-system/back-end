@@ -86,7 +86,7 @@ app.UseMiddleware<PerformanceMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors();
 app.MapControllers();
 
 app.MapHub<AuctionHub>("auction-hub");
