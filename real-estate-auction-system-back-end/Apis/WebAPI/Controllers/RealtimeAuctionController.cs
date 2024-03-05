@@ -62,7 +62,7 @@ namespace WebAPI.Controllers
                 await _hubContext.Clients.All.SendAsync("AuctionStarted", AuctionDurationSeconds, CurrentPrice);
                 await _realtimeAuctionService.StartAuction(realEstateId);
                 AuctionDurationSeconds = 30;
-                CurrentPrice = 0;
+                CurrentPrice = realEstate.StartPrice;
                 while (AuctionDurationSeconds > 0)
                 {
                     await _hubContext.Clients.All.SendAsync("AuctionCountdown", AuctionDurationSeconds, CurrentPrice);
@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
                     AuctionDurationSeconds--;
 
                 }
-                if (CurrentPrice != 0)
+                if (CurrentPrice != realEstate.StartPrice)
                 {
                     var lastAuction = await _realtimeAuctionService.GetLastAuction(realEstateId, CurrentPrice);
                     await _orderService.AddAsync(new Order { 
