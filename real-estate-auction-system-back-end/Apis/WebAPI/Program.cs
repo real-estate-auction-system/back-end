@@ -41,6 +41,7 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
                       });
 });
+
 builder.Services.AddSingleton(configuration);
 builder.Services.AddSignalR();
 builder.Services.AddSwaggerGen(opt =>
@@ -84,6 +85,7 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseMiddleware<PerformanceMiddleware>();
 
 app.UseHttpsRedirection();
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
 

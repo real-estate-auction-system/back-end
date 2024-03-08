@@ -31,16 +31,29 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<List<RealEstate>> GetAll()
         {
-            var list = await _realEstateService.GetAll();
+            /*var list = await _realEstateService.GetAll();
             if (list.Count == 0)
             {
                 throw new Exception("Khong co gi");
             }
-            return list;
+            return list;*/
+            return await _realEstateService.GetAll();
         }
 
-        [HttpPost]
-        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetItem(int id)
+        {
+            try
+            {
+                var realEstate = await _realEstateService.GetByIdAsync(id);
+                return Ok(realEstate);
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]       
         public async Task<IActionResult> Post([FromBody] RealEstateModel realEstateModel)
         {
             try
