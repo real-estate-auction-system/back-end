@@ -54,7 +54,7 @@ namespace Infrastructures.Services
                 FullName = userObject.FullName,
                 Gender = userObject.Gender,
                 Phone = userObject.Phone,
-                RoleId = 2,
+                RoleId = 1,
             };
 
             await _unitOfWork.AccountRepository.AddAsync(newAccount);

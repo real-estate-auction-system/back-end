@@ -28,10 +28,11 @@ namespace Application.Services
                 throw new ArgumentNullException(nameof(realEstate));
             }
             realEstate.AccountId = userId;
-            realEstate.AuctionId = 1;
             await _unitOfWork.RealEstateRepository.AddAsync(realEstate);
             await _unitOfWork.SaveChangeAsync();
         }
+
+
 
         public async Task<List<RealEstate>> GetAll()
         {

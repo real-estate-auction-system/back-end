@@ -41,6 +41,7 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
                       });
 });
+
 builder.Services.AddSingleton(configuration);
 builder.Services.AddSignalR();
 builder.Services.AddSwaggerGen(opt =>
@@ -87,7 +88,7 @@ app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors();
 app.MapControllers();
 
 app.MapHub<AuctionHub>("auction-hub");

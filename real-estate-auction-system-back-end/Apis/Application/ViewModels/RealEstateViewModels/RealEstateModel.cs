@@ -17,7 +17,8 @@ namespace Application.ViewModels.RealEstateViewModels
         public string Address { get; set; }
         public string Province { get; set; }
         public string Description { get; set; }
-        public string DateSubmited { get; set; }
+        public int AuctionId { get; set; }
+        public DateTime DateSubmited { get; set; }
         public bool IsAvailable { get; set; } = true;
         public int TypeOfRealEstateId { get; set; }
     }

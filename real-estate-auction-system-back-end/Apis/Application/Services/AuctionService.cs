@@ -1,4 +1,6 @@
 ﻿using Application.Interfaces;
+using Application.ViewModels.AuctionsViewModels;
+using Application.ViewModels.RealEstateViewModels;
 using AutoMapper;
 using Domain.Entities;
 using Firebase.Auth.Requests;
@@ -19,6 +21,19 @@ namespace Application.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        public async Task AddAsync(AuctionModel auctionModel, int userId)
+        {
+            var auction = _mapper.Map<Auction>(auctionModel);
+            if (auction == null)
+            {
+                throw new ArgumentNullException(nameof(auction));
+            }
+            auction.CreatorId = userId;
+            await _unitOfWork.AuctionRepository.AddAsync(auction);
+            await _unitOfWork.SaveChangeAsync();
+        }
+
         public async Task<Auction?> GetTodayAuction()
         {
             var auction = await _unitOfWork.AuctionRepository.GetTodayAuction();

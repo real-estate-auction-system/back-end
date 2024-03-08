@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.ViewModels.AuctionsViewModels;
+using Application.ViewModels.RealEstateViewModels;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +12,6 @@ namespace Application.Interfaces
     public interface IAuctionService
     {
         Task<Auction?> GetTodayAuction();
+        Task AddAsync(AuctionModel auctionModel, int userId);
     }
 }
