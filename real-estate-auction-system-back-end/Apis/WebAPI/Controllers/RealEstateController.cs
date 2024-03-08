@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Post([FromBody] RealEstateModel realEstateModel)
+        public async Task<IActionResult> Post([FromForm] RealEstateModel realEstateModel)
         {
             try
             {

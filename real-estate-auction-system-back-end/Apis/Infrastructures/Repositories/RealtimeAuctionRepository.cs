@@ -27,5 +27,12 @@ namespace Infrastructures.Repositories
             var auction = await _dbContext.RealtimeAuctions.Where(x => x.RealEstateId == realEstateId && x.CurrentPrice == finalPrice).ToListAsync();
             return auction[0];
         }
+
+        public async Task<RealtimeAuction?> GetLastAuctionOfUserId(int realEstateId, int accountId)
+        {
+
+            var auction = await _dbContext.RealtimeAuctions.Where(x => x.RealEstateId == realEstateId && x.AccountId == accountId).OrderByDescending(x => x.CurrentPrice).FirstOrDefaultAsync();
+            return auction;
+        }
     }
 }

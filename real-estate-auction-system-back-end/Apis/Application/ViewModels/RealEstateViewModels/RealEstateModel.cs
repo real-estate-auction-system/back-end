@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,5 +22,7 @@ namespace Application.ViewModels.RealEstateViewModels
         public string DateSubmited { get; set; }
         public bool IsAvailable { get; set; } = true;
         public int TypeOfRealEstateId { get; set; }
+        [NotMapped]
+        public List<IFormFile>? Image { get; set; } = default!;
     }
 }
