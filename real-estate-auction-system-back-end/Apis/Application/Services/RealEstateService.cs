@@ -31,7 +31,6 @@ namespace Application.Services
                 throw new ArgumentNullException(nameof(realEstate));
             }
             realEstate.AccountId = userId;
-
             realEstate.AuctionId = 1;
             if (realEstateModel.Image.Count != 0)
             {
@@ -60,7 +59,6 @@ namespace Application.Services
                     await _unitOfWork.RealEstateImageRepository.AddAsync(realEstateImage);
                 }
             }
-
             await _unitOfWork.RealEstateRepository.AddAsync(realEstate);
             await _unitOfWork.SaveChangeAsync();
         }

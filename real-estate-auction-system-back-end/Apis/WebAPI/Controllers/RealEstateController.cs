@@ -29,7 +29,6 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
 
-
         [HttpGet]
         public async Task<List<RealEstate>> GetAllRealEstate()
         {
@@ -104,6 +103,7 @@ namespace WebAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
     }
 }
