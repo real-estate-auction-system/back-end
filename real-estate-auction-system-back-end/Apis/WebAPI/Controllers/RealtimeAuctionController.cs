@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Commons;
+using Application.Interfaces;
 using Application.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,6 @@ namespace WebAPI.Controllers
         private readonly IOrderService _orderService;
         private readonly IClaimsService _claimsService;
         private readonly IHubContext<AuctionHub> _hubContext;
-        public static int AuctionDurationSeconds;
         public static double CurrentPrice = 0;
         public RealtimeAuctionController(IRealtimeAuctionService realtimeAuctionService, IOrderService orderService, IClaimsService claimsService, IHubContext<AuctionHub> hubContext, IRealEstateService realEstateService)
         {
@@ -38,10 +38,20 @@ namespace WebAPI.Controllers
                 {
                     throw new Exception("Khong tim thay san pham");
                 }
+                var realTimeAuction = await _realtimeAuctionService.GetLastAuctionOfUserId(realEstateId, _claimsService.GetCurrentUserId);
+                double myBind = 0;
+                if (realTimeAuction != null)
+                {
+                    myBind = realTimeAuction.CurrentPrice;
+                }
                 if (realEstate.RealEstateStatus == Domain.Enums.RealEstateStatus.onGoing)
-                    return Ok(true);
-                else
-                    return Ok(false);
+                    return Ok( new CheckAuctionResponse{ 
+                    OnGoing = true,
+                    CurrentPrice = CurrentPrice,
+                    Endtime = realEstate.EndTime.Value,
+                    UserBind = myBind
+                    });
+                throw new Exception("Da ket thuc");
             }
             catch (Exception ex)
             {
@@ -59,15 +69,17 @@ namespace WebAPI.Controllers
                 {
                     throw new Exception("Khong tim thay san pham");
                 }
-                await _hubContext.Clients.All.SendAsync("AuctionStarted", AuctionDurationSeconds, CurrentPrice);
+                realEstate.StartTime = DateTime.Now;
+                realEstate.EndTime = DateTime.Now.AddHours(1);
+                await _realEstateService.Update(realEstate);
+                await _hubContext.Clients.All.SendAsync("AuctionStarted", CurrentPrice);
                 await _realtimeAuctionService.StartAuction(realEstateId);
-                AuctionDurationSeconds = 60;
                 CurrentPrice = realEstate.StartPrice;
-                while (AuctionDurationSeconds > 0)
+                while (DateTime.Now != realEstate.EndTime)
                 {
-                    await _hubContext.Clients.All.SendAsync("AuctionCountdown", AuctionDurationSeconds, CurrentPrice);
+                    /*await _hubContext.Clients.All.SendAsync("AuctionCountdown", AuctionDurationSeconds, CurrentPrice);
                     await Task.Delay(TimeSpan.FromSeconds(1));
-                    AuctionDurationSeconds--;
+                    AuctionDurationSeconds--;*/
                 }
                 if (CurrentPrice != realEstate.StartPrice)
                 {
@@ -87,7 +99,7 @@ namespace WebAPI.Controllers
                     realEstate.RealEstateStatus = Domain.Enums.RealEstateStatus.noUserBuy;
                     await _realEstateService.Update(realEstate);
                 }
-                await _hubContext.Clients.All.SendAsync("AuctionEnded", AuctionDurationSeconds, CurrentPrice);
+                await _hubContext.Clients.All.SendAsync("AuctionEnded", CurrentPrice);
                 return Ok();
             }
             catch (Exception ex)
@@ -99,9 +111,9 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRealtimeAuction(int realEstateId, double currentPrice)
         {
-            AuctionDurationSeconds = 30;
             CurrentPrice = currentPrice;
             await _realtimeAuctionService.AddRealtimeAuction(realEstateId, currentPrice, _claimsService.GetCurrentUserId);
+            await _hubContext.Clients.All.SendAsync("AuctionCountdown", CurrentPrice);
             return Ok();
         }
     }

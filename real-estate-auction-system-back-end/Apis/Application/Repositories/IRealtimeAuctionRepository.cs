@@ -10,5 +10,6 @@ namespace Application.Repositories
     public interface IRealtimeAuctionRepository : IGenericRepository<RealtimeAuction>
     {
         Task<RealtimeAuction> GetLastAuction(int realEstateId, double finalPrice);
+        Task<RealtimeAuction?> GetLastAuctionOfUserId(int realEstateId, int accountId);
     }
 }

@@ -20,6 +20,8 @@ namespace Domain.Entities
         public string Description { get; set; }
         public DateTime DateSubmited { get; set; }
         public bool IsAvailable { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
        
         public RealEstateStatus RealEstateStatus { get; set; } = RealEstateStatus.notYet;
         public virtual IList<RealEstateImage> RealEstateImages { get; set; }

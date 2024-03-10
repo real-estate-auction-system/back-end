@@ -51,5 +51,8 @@ namespace Application.Services
 
         public async Task<RealtimeAuction> GetLastAuction(int realEstateId, double finalPrice)
         => await _unitOfWork.RealtimeAuctionRepository.GetLastAuction(realEstateId, finalPrice);
+
+        public async Task<RealtimeAuction?> GetLastAuctionOfUserId(int realEstateId, int accountId)
+            => await _unitOfWork.RealtimeAuctionRepository.GetLastAuctionOfUserId(realEstateId, accountId);
     }
 }

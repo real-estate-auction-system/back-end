@@ -28,66 +28,6 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet]
-        public async Task<List<RealEstate>> GetAll()
-        {
-            /*var list = await _realEstateService.GetAll();
-            if (list.Count == 0)
-            {
-                throw new Exception("Khong co gi");
-            }
-            return list;*/
-            return await _realEstateService.GetAll();
-        }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetItem(int id)
-        {
-            try
-            {
-                var realEstate = await _realEstateService.GetByIdAsync(id);
-                return Ok(realEstate);
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost]       
-        public async Task<IActionResult> Post([FromBody] RealEstateModel realEstateModel)
-        {
-            try
-            {
-                await _realEstateService.AddAsync(realEstateModel, _claimsService.GetCurrentUserId);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok();
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRealEstate(int id, [FromBody] RealEstate realEstate)
-        {
-            if (realEstate == null || id != realEstate.Id)
-            {
-                return BadRequest("Invalid request");
-            }
-
-            var existingRealEstate = _realEstateService.GetByIdAsync(id);
-            if (existingRealEstate == null)
-            {
-                return NotFound();
-            }
-
-            _realEstateService.Update(realEstate);
-            
-            return NoContent();
-        }
     }
 }
