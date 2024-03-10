@@ -3,6 +3,7 @@ using Application.Repositories;
 using Application.Commons;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Infrastructures.Repositories
 {
@@ -30,9 +31,9 @@ namespace Infrastructures.Repositories
 
         public void SoftRemove(TEntity entity)
         {
-
-            _dbSet.Update(entity);
+           _dbSet.Remove(entity);
         }
+
 
         public void Update(TEntity entity)
         {

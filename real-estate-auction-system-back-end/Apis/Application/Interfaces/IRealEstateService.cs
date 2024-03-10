@@ -13,6 +13,7 @@ namespace Application.Interfaces
         Task<List<RealEstate>> GetAll();
         Task AddAsync(RealEstateModel realEstateModel, int userId);
         Task Update(RealEstate realEstate);
+        Task DeleteAsync(RealEstate realEstate);
         Task<RealEstate?> GetByIdAsync(int id);
     }
 }

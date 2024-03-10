@@ -2,6 +2,7 @@
 using Application.ViewModels.RealEstateViewModels;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,6 @@ namespace Application.Services
                 throw new ArgumentNullException(nameof(realEstate));
             }
             realEstate.AccountId = userId;
-
             realEstate.AuctionId = 1;
             if (realEstateModel.Image.Count != 0)
             {
@@ -56,15 +56,18 @@ namespace Application.Services
                         ImageURL = url
                     };
 
-                    //await _unitOfWork.Rea.AddAsync(bonsaiImage);
+                    await _unitOfWork.RealEstateImageRepository.AddAsync(realEstateImage);
                 }
             }
-
             await _unitOfWork.RealEstateRepository.AddAsync(realEstate);
             await _unitOfWork.SaveChangeAsync();
         }
 
-
+        public async Task DeleteAsync(RealEstate realEstate)
+        {
+             _unitOfWork.RealEstateRepository.SoftRemove(realEstate);
+            await _unitOfWork.SaveChangeAsync();
+        }
 
         public async Task<List<RealEstate>> GetAll()
         {
