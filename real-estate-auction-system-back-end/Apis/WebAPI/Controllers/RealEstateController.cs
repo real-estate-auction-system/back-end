@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace WebAPI.Controllers
 {
@@ -29,23 +30,20 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<List<RealEstate>> GetAll()
+        public async Task<List<RealEstate>> GetAllRealEstate()
         {
-            /*var list = await _realEstateService.GetAll();
-            if (list.Count == 0)
-            {
-                throw new Exception("Khong co gi");
-            }
-            return list;*/
-            return await _realEstateService.GetAll();
+            var realEstates = await _realEstateService.GetAll();
+            if (realEstates.Count == 0) { throw new Exception("Empty list ..."); }
+            return realEstates;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetItem(int id)
+        public async Task<IActionResult> GetRealEstate(int id)
         {
             try
             {
                 var realEstate = await _realEstateService.GetByIdAsync(id);
+                if (realEstate == null) { return NotFound(); }
                 return Ok(realEstate);
             }catch(Exception ex)
             {
@@ -54,7 +52,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]       
-        public async Task<IActionResult> Post([FromBody] RealEstateModel realEstateModel)
+        public async Task<IActionResult> CreateRealEstate([FromForm] RealEstateModel realEstateModel)
         {
             try
             {
@@ -68,26 +66,44 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            return Ok();
+            return Ok(realEstateModel);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRealEstate(int id, [FromBody] RealEstate realEstate)
+        public async Task<IActionResult> UpdateRealEstate(int id, [FromBody] RealEstateUpdateRequest realEstateModel)
         {
-            if (realEstate == null || id != realEstate.Id)
+          try
             {
-                return BadRequest("Invalid request");
+                var realEstate = await _realEstateService.GetByIdAsync(id);
+                if (realEstate == null) { return NotFound(); }
+                realEstate.Price = realEstateModel.Price;
+                realEstate.StartPrice = realEstateModel.StartPrice;
+                realEstate.Acreage = realEstateModel.Acreage;
+                realEstate.Description = realEstateModel.Description;
+                await _realEstateService.Update(realEstate);
+                return Ok(realEstateModel);
             }
-
-            var existingRealEstate = _realEstateService.GetByIdAsync(id);
-            if (existingRealEstate == null)
+            catch(Exception ex) 
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
-
-            _realEstateService.Update(realEstate);
-            
-            return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRealEstate(int id)
+        {
+            try
+            {
+                var realEstate = await _realEstateService.GetByIdAsync(id);
+                if (realEstate == null) { return NotFound(); }
+                await _realEstateService.DeleteAsync(realEstate);
+                return Ok(realEstate);
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }
