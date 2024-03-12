@@ -39,6 +39,50 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        } 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAccounts([FromRoute] int pageIndex, int pageSize)
+        {
+            try
+            {
+                var response = await _accountService.GetAccounts(pageIndex, pageSize);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("/api/accounts/getById/{id:int}")]
+        public async Task<IActionResult> GetAccountById(int id)
+        {
+            try
+            {
+                var response = await _accountService.GetAccountById(id);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<AccountResponse>> UpdateAccount([FromBody] UpdateAccountRequest request, int id)
+        {
+            var rs = await _accountService.UpdateAccount(id, request);
+            if (rs == null) return NotFound();
+            return Ok(rs);
+        }
     }
 }

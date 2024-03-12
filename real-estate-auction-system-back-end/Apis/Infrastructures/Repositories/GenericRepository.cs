@@ -4,6 +4,7 @@ using Application.Commons;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Infrastructures.Repositories
 {
@@ -73,5 +74,9 @@ namespace Infrastructures.Repositories
         {
             _dbSet.UpdateRange(entities);
         }
+
+        public Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate) => _dbSet.SingleOrDefaultAsync(predicate);
+
+        public IQueryable<TEntity> FindAll(Func<TEntity, bool> predicate) => _dbSet.Where(predicate).AsQueryable();
     }
 }

@@ -59,6 +59,75 @@ namespace Infrastructures.Services
 
             await _unitOfWork.AccountRepository.AddAsync(newAccount);
             await _unitOfWork.SaveChangeAsync();
+        
+        }
+
+        public async Task<Pagination<AccountResponse>> GetAccounts(int pageIndex, int pageSize)
+        {
+            try
+            {
+                var response = await _unitOfWork.AccountRepository.ToPagination(pageIndex, pageSize);
+                List<AccountResponse> items = new List<AccountResponse>();
+                foreach (Account account in response.Items)
+                {
+                    items.Add(_mapper.Map<AccountResponse>(account));
+                }
+                var pagination = new Pagination<AccountResponse>()
+                {
+                    Items = items,
+                    PageIndex = pageIndex,
+                    PageSize = pageSize,
+                    TotalItemsCount = response.TotalItemsCount,
+                };
+                return pagination;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get list account error!");
+            }
+        }
+
+        public async Task<AccountResponse> GetAccountById(int id)
+        {
+            try
+            {
+                var response = await _unitOfWork.AccountRepository.GetByIdAsync(id);
+                if (response == null)
+                {
+                    throw new Exception($"Not found account with id {id.ToString()}");
+                }
+                return _mapper.Map<AccountResponse>(response);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get account by id error!");
+            }
+        }
+
+        public async Task<AccountResponse> UpdateAccount(int id, UpdateAccountRequest request)
+        {
+            try
+            {
+                Account a = await _unitOfWork.AccountRepository.GetByIdAsync(id);
+                if (a == null)
+                {
+                    throw new Exception($"Not found account with id {id.ToString()}");
+                }
+                var existingUserName = _unitOfWork.AccountRepository.CheckUserNameExited(request.UserName);
+                if (existingUserName.Equals(true))
+                {
+                    throw new Exception("UserName has already been taken");
+                }
+
+                _mapper.Map<UpdateAccountRequest, Account>(request, a);
+                _unitOfWork.AccountRepository.Update(a);
+                await _unitOfWork.SaveChangeAsync();
+                return _mapper.Map<AccountResponse>(a);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Update account error!");
+            }
         }
     }
 }
