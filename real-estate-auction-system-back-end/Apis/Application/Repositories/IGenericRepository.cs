@@ -1,5 +1,6 @@
 ﻿using Application.Commons;
 using Domain.Entities;
+using System.Linq.Expressions;
 
 namespace Application.Repositories
 {
@@ -13,6 +14,8 @@ namespace Application.Repositories
         void SoftRemove(TEntity entity);
         Task AddRangeAsync(List<TEntity> entities);
         void SoftRemoveRange(List<TEntity> entities);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate);
+        IQueryable<TEntity> FindAll(Func<TEntity, bool> predicate);
 
         Task<Pagination<TEntity>> ToPagination(int pageNumber = 0, int pageSize = 10);
     }
