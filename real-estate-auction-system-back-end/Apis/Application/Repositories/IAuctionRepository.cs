@@ -10,5 +10,6 @@ namespace Application.Repositories
     public interface IAuctionRepository : IGenericRepository<Auction>
     {
         Task<Auction?> GetTodayAuction();
+        Task<List<Auction>> GetUpcomingAuctions();
     }
 }

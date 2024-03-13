@@ -13,5 +13,7 @@ namespace Application.Interfaces
     {
         Task<Auction?> GetTodayAuction();
         Task AddAsync(AuctionModel auctionModel, int userId);
+
+        Task<List<Auction>> GetUpcomingAuctions();
     }
 }

@@ -39,5 +39,11 @@ namespace Application.Services
             var auction = await _unitOfWork.AuctionRepository.GetTodayAuction();
             return auction;
         }
+
+        public async Task<List<Auction>> GetUpcomingAuctions()
+        {
+            var auctions = await _unitOfWork.AuctionRepository.GetUpcomingAuctions();
+            return auctions;
+        }
     }
 }

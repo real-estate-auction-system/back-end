@@ -34,6 +34,19 @@ namespace WebAPI.Controllers
             return Ok(auction);
         }
 
+        [HttpGet("UpcomingAuction")]
+        public async Task<IActionResult> GetUpcomingAuction()
+        {
+            var auctions = await _auctionService.GetUpcomingAuctions();
+
+            if (auctions.Count == 0)
+            {
+                return NotFound(new { message = "There is no upcoming auction." });
+            }
+
+            return Ok(auctions);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AuctionModel auctionModel)
         {
