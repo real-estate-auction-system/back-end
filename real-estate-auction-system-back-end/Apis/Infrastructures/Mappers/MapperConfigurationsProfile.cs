@@ -5,6 +5,8 @@ using Domain.Entities;
 using Application.ViewModels.RealEstateViewModels;
 using Application.ViewModels.NewsViewModel;
 using Application.ViewModels.AuctionsViewModels;
+using Application.ViewModels.OrderViewModel;
+using Application.ViewModels.UserViewModels;
 
 namespace Infrastructures.Mappers
 {
@@ -17,6 +19,12 @@ namespace Infrastructures.Mappers
             CreateMap<RealEstate, RealEstateModel>().ReverseMap();
             CreateMap<RealEstate, RealEstateUpdateRequest>().ReverseMap();
             CreateMap<News, NewsModel>().ReverseMap();
+
+            CreateMap<Account, AccountResponse>();
+            CreateMap<UpdateAccountRequest, Account>();
+            CreateMap<Order, OrderResponse>();
+            CreateMap<CreateOrderRequest, Order>();
+            CreateMap<RealEstateModel, RealEstate>();
         }
     }
 }
