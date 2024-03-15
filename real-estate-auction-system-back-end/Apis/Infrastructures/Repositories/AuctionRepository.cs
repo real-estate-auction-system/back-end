@@ -21,13 +21,13 @@ namespace Infrastructures.Repositories
         }
         public async Task<Auction?> GetTodayAuction()
         {
-            var auction = await _dbContext.Auctions.Where(x => x.StartTime.Date == new DateTime(2024, 3, 3) /*DateTime.Now.Date*/).Include(x => x.RealEstates).FirstOrDefaultAsync();
+            var auction = await _dbContext.Auctions.Where(x => x.Date.Date == new DateTime(2024, 3, 3) /*DateTime.Now.Date*/).Include(x => x.RealEstates).FirstOrDefaultAsync();
             return auction;
         }
         public async Task<List<Auction>> GetUpcomingAuctions()
         {
             DateTime today = DateTime.UtcNow.Date;
-            var auctions = await _dbContext.Auctions.Where(x => x.StartTime.Date > today).Include(x => x.RealEstates).ToListAsync();
+            var auctions = await _dbContext.Auctions.Where(x => x.Date.Date > today).Include(x => x.RealEstates).ToListAsync();
             return auctions;
         }
     }
