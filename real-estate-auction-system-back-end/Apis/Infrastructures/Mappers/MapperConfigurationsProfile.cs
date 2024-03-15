@@ -17,6 +17,7 @@ namespace Infrastructures.Mappers
             CreateMap(typeof(Pagination<>), typeof(Pagination<>));
             CreateMap<Auction, AuctionModel>().ReverseMap();
             CreateMap<RealEstate, RealEstateModel>().ReverseMap();
+            CreateMap<RealEstate, RealEstateUpdateRequest>().ReverseMap();
             CreateMap<News, NewsModel>().ReverseMap();
 
             CreateMap<Account, AccountResponse>();

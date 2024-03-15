@@ -39,6 +39,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                          //policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
                       });
 });
 
@@ -88,7 +89,7 @@ app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors();
+
 app.MapControllers();
 
 app.MapHub<AuctionHub>("auction-hub");

@@ -20,8 +20,9 @@ namespace Application.ViewModels.RealEstateViewModels
         public string Province { get; set; }
         public string Description { get; set; }
         public int AuctionId { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public DateTime DateSubmited { get; set; }
-        public bool IsAvailable { get; set; } = true;
         public int TypeOfRealEstateId { get; set; }
         [NotMapped]
         public List<IFormFile>? Image { get; set; } = default!;

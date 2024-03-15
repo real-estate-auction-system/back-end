@@ -28,6 +28,7 @@ namespace Infrastructures.Repositories
         public async Task AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
+            return ;
         }
 
         public void SoftRemove(TEntity entity)

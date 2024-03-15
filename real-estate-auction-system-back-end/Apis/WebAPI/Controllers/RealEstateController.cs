@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Server.IIS.Core;
+using AutoMapper;
 
 namespace WebAPI.Controllers
 {
@@ -22,11 +23,16 @@ namespace WebAPI.Controllers
         private readonly IRealEstateService _realEstateService;
         private readonly IClaimsService _claimsService;
         private readonly IConfiguration _configuration;
-        public RealEstateController(IRealEstateService realEstateService, IClaimsService claimsService, IConfiguration configuration)
+        private readonly IMapper _mapper;
+
+        public RealEstateController(IRealEstateService realEstateService, 
+            IClaimsService claimsService, IConfiguration configuration, 
+            IMapper mapper)
         {
             _realEstateService = realEstateService;
             _claimsService = claimsService;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -66,7 +72,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            return Ok(realEstateModel);
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -74,14 +80,13 @@ namespace WebAPI.Controllers
         {
           try
             {
-                var realEstate = await _realEstateService.GetByIdAsync(id);
-                if (realEstate == null) { return NotFound(); }
-                realEstate.Price = realEstateModel.Price;
-                realEstate.StartPrice = realEstateModel.StartPrice;
-                realEstate.Acreage = realEstateModel.Acreage;
-                realEstate.Description = realEstateModel.Description;
-                await _realEstateService.Update(realEstate);
-                return Ok(realEstateModel);
+                var realEstateUpdate = _mapper.Map<RealEstate>(realEstateModel);
+                realEstateUpdate = await _realEstateService.UpdateAsync(id, realEstateUpdate);
+                if(realEstateUpdate == null)
+                {
+                    return NotFound();  
+                }
+                return Ok(_mapper.Map<RealEstate>(realEstateUpdate));
             }
             catch(Exception ex) 
             {
