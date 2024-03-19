@@ -36,6 +36,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<List<RealEstate>> GetAllRealEstate()
         {
             var realEstates = await _realEstateService.GetAll();
@@ -43,7 +44,7 @@ namespace WebAPI.Controllers
             return realEstates;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetRealEstate")]
         public async Task<IActionResult> GetRealEstate(int id)
         {
             try
@@ -72,7 +73,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            return Ok();
+            return CreatedAtRoute("GetRealEstate", realEstateModel);
         }
 
         [HttpPut("{id}")]
