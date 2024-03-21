@@ -18,5 +18,7 @@ namespace Application
 
         public IOrderRepository OrderRepository { get; }
         public Task<int> SaveChangeAsync();
+
+        public ITypeOfRealEstateRepository TypeOfRealEstateRepository { get; }
     }
 }

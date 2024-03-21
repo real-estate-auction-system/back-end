@@ -14,10 +14,12 @@ namespace Infrastructures
         private readonly IAuctionRepository _auctionRepository;
         private readonly IRealtimeAuctionRepository _realtimeAuctionRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly ITypeOfRealEstateRepository _typeOfRealEstateRepository;
         public UnitOfWork(AppDbContext dbContext,
             IAccountRepository accountRepository, IRealEstateRepository realEstateRepository,
             IRealEstateImageRepository realEstateImageRepository, INewsRepository newsRepository,
-            IAuctionRepository auctionRepository, IRealtimeAuctionRepository realtimeAuctionRepository, IOrderRepository orderRepository)
+            IAuctionRepository auctionRepository, IRealtimeAuctionRepository realtimeAuctionRepository, 
+            IOrderRepository orderRepository, ITypeOfRealEstateRepository typeOfRealEstateRepository)
         {
             _dbContext = dbContext;
             _accountRepository = accountRepository;
@@ -27,6 +29,7 @@ namespace Infrastructures
             _realtimeAuctionRepository = realtimeAuctionRepository;
             _orderRepository = orderRepository;
             _realEstateImageRepository = realEstateImageRepository;
+            _typeOfRealEstateRepository = typeOfRealEstateRepository;
         }
         public IAccountRepository AccountRepository => _accountRepository;
 
@@ -40,6 +43,8 @@ namespace Infrastructures
 
         public IOrderRepository OrderRepository => _orderRepository;
         public IRealEstateImageRepository RealEstateImageRepository => _realEstateImageRepository;
+
+        public ITypeOfRealEstateRepository TypeOfRealEstateRepository => _typeOfRealEstateRepository;
 
         public async Task<int> SaveChangeAsync()
         {

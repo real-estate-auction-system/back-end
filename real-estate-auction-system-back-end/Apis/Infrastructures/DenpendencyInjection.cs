@@ -21,6 +21,7 @@ namespace Infrastructures
             services.AddScoped<IAuctionRepository, AuctionRepository>();
             services.AddScoped<IRealtimeAuctionRepository, RealtimeAuctionRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ITypeOfRealEstateRepository,  TypeOfRealEstateRepository>();
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRealEstateService, RealEstateService>();

@@ -12,6 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Server.IIS.Core;
+using Application.Commons;
+using Application.Services;
 
 namespace WebAPI.Controllers
 {
@@ -104,6 +106,22 @@ namespace WebAPI.Controllers
             }
         }
 
-
+        [HttpGet("/api/realEstate/getByType/{id}")]
+        public async Task<IActionResult> GetRealEstateByType(int id, [FromRoute] int pageIndex, int pageSize)
+        {
+            try
+            {
+                var response = await _realEstateService.GetRealEstateByType(pageIndex, pageSize, id);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

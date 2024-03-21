@@ -1,5 +1,8 @@
-﻿using Application.Interfaces;
+﻿using Application.Commons;
+using Application.Interfaces;
+using Application.ViewModels.OrderViewModel;
 using Application.ViewModels.RealEstateViewModels;
+using Application.ViewModels.UserViewModels;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -77,6 +80,35 @@ namespace Application.Services
         public async Task<RealEstate?> GetByIdAsync(int id)
         {
             return await _unitOfWork.RealEstateRepository.GetByIdAsync(id);
+        }
+
+        public async Task<Pagination<RealEstate>> GetRealEstateByType(int pageIndex, int pageSize, int typeId)
+        {
+            try
+            {
+                var response = _unitOfWork.RealEstateRepository.FindAll(o => o.TypeOfRealEstateId == typeId);
+                if (response == null)
+                {
+                    throw new Exception($"Not found real estate with type id {typeId.ToString()}");
+                }
+                List<RealEstate> result = new List<RealEstate>();
+                foreach (var item in response)
+                {
+                    result.Add(_mapper.Map<RealEstate>(item));
+                }
+                var rs = new Pagination<RealEstate>()
+                {
+                    Items = result,
+                    PageIndex = pageIndex,
+                    PageSize = pageSize,
+                    TotalItemsCount = result.Count,
+                };
+                return rs;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Get list real estate by type id {typeId.ToString()} error!");
+            }
         }
 
         public async Task Update(RealEstate realEstate)
