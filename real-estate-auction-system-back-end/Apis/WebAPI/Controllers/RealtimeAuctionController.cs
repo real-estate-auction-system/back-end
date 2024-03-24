@@ -70,16 +70,13 @@ namespace WebAPI.Controllers
                     throw new Exception("Khong tim thay san pham");
                 }
                 realEstate.StartTime = DateTime.Now;
-                realEstate.EndTime = DateTime.Now.AddHours(1);
+                realEstate.EndTime = DateTime.Now.AddSeconds(30);
                 await _realEstateService.Update(realEstate);
                 await _hubContext.Clients.All.SendAsync("AuctionStarted", CurrentPrice);
                 await _realtimeAuctionService.StartAuction(realEstateId);
                 CurrentPrice = realEstate.StartPrice;
                 while (DateTime.Now != realEstate.EndTime)
                 {
-                    /*await _hubContext.Clients.All.SendAsync("AuctionCountdown", AuctionDurationSeconds, CurrentPrice);
-                    await Task.Delay(TimeSpan.FromSeconds(1));
-                    AuctionDurationSeconds--;*/
                 }
                 if (CurrentPrice != realEstate.StartPrice)
                 {
