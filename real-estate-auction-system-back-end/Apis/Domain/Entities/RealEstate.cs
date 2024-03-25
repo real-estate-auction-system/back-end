@@ -1,6 +1,7 @@
 ﻿using Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -24,8 +25,7 @@ namespace Domain.Entities
         public DateTime? EndTime { get; set; }
        
         public RealEstateStatus RealEstateStatus { get; set; } = RealEstateStatus.notYet;
-        [JsonIgnore]
-        public virtual IList<RealEstateImage> RealEstateImages { get; set; }
+        public virtual IList<RealEstateImage>? RealEstateImages { get; set; }
         public int AccountId { get; set; }
         public int TypeOfRealEstateId { get; set; }
         public virtual TypeOfRealEstate TypeOfRealEstate { get; set; }

@@ -36,6 +36,9 @@ namespace Application.Services
                 realEstate.IsAvailable = true;
                 realEstate.AccountId = userId;
                 realEstate.RealEstateStatus = Domain.Enums.RealEstateStatus.notYet;
+                realEstate.TypeOfRealEstateId = 1;
+                realEstate.AuctionId = 1;
+                realEstate.DateSubmited = DateTime.Now.Date;
                 await _unitOfWork.RealEstateRepository.AddAsync(realEstate);
                 await _unitOfWork.SaveChangeAsync();
                 if (realEstateModel.Image.Count != 0)
@@ -155,23 +158,22 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();          
         }
 
-        public async Task<RealEstate?> UpdateAsync(int id, RealEstate realEstate)
+        public async Task<RealEstate?> UpdateAsync(int id, RealEstateUpdateRequest realEstate)
         {
             var realEstateExisted = await _unitOfWork.RealEstateRepository.GetByIdAsync(id);
             if (realEstateExisted == null)
             {
                 return null;
             }
-            realEstateExisted.AccountId = realEstate.AccountId;
             realEstateExisted.Name = realEstate.Name;
             realEstateExisted.Code = realEstate.Code;
             realEstateExisted.Price = realEstate.Price;
-            realEstateExisted.Description = realEstate.Description;
             realEstateExisted.StartPrice = realEstate.StartPrice;
-            realEstateExisted.StartTime = realEstate.StartTime;
-            realEstateExisted.EndTime = realEstate.EndTime;
-            realEstateExisted.IsAvailable = realEstate.IsAvailable;
-            realEstateExisted.DateSubmited = realEstate.DateSubmited;
+            realEstateExisted.Acreage = realEstate.Acreage;
+            realEstateExisted.Address = realEstate.Address;
+            realEstateExisted.Province =realEstate.Province;
+            realEstateExisted.Description = realEstate.Description;
+            realEstateExisted.AuctionId = 1;
 
             _unitOfWork.RealEstateRepository.Update(realEstateExisted);
             await _unitOfWork.SaveChangeAsync();
@@ -189,8 +191,8 @@ namespace Application.Services
                 var existingRealEstate = _unitOfWork.RealEstateRepository.FindAsync(c => c.Name.Equals(request.Name));
                 if (existingRealEstate != null)
                     throw new Exception("Name of Real Estate has already been taken");
-                if (request.StartTime > request.EndTime)
-                    throw new Exception("Start Time or End Time is invalid");
+                if (request.Price > 0)
+                    throw new Exception("Price is invalid");
 
                 _mapper.Map<RealEstateUpdateRequest, RealEstate>(request, realEstate);
 

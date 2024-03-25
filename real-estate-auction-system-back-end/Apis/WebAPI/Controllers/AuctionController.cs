@@ -29,15 +29,12 @@ namespace WebAPI.Controllers
         {
             try
             {
-
-
-
-                ModelState.AddModelError("firstError", "Hôm nay không có buổi đấu giá nào");
-                return ValidationProblem();
+               
                 var auction = await _auctionService.GetTodayAuction();
                 if (auction == null)
                 {
-                    throw new Exception("There is no auction for today!");
+                    ModelState.AddModelError("firstError", "Hôm nay không có buổi đấu giá nào");
+                    return ValidationProblem();
                 }
                 return Ok(auction);
             }
