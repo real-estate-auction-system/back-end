@@ -144,7 +144,11 @@ namespace Application.Services
                 result.Name = news.Name;
                 result.Title = news.Title;
                 result.Description = news.Description;
+<<<<<<< HEAD
                 //result.image = news.image;
+=======
+
+>>>>>>> 5854904ae19c2971cb9618594e9238610640cac8
                 //result.time = news.time;
             } else
             {
@@ -154,6 +158,7 @@ namespace Application.Services
             //return await _unitOfWork.NewsRepository.GetByIdAsync(id);
         }
 
+<<<<<<< HEAD
 
         public async Task<News?> UpdateNewsById(int id, News newsModel)
         {
@@ -188,5 +193,7 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
         }
 
+=======
+>>>>>>> 5854904ae19c2971cb9618594e9238610640cac8
     }
 }
