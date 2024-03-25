@@ -14,10 +14,12 @@ namespace WebAPI.Controllers
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
+        private readonly IClaimsService _claimsService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IClaimsService claimsService)
         {
             _accountService = accountService;
+            _claimsService = claimsService;
         }
 
         [HttpPost]
@@ -61,6 +63,24 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllAccounts()
+        {
+            try
+            {
+                var response = await _accountService.GetAllAccounts();
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("/api/accounts/getById/{id:int}")]
         public async Task<IActionResult> GetAccountById(int id)
         {
@@ -87,5 +107,22 @@ namespace WebAPI.Controllers
             return Ok(rs);
         }
 
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetAccountById()
+        {
+            try
+            {
+                var response = await _accountService.GetAccountById(_claimsService.GetCurrentUserId);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
