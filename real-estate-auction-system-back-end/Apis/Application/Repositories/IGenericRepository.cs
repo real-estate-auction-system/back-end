@@ -16,6 +16,8 @@ namespace Application.Repositories
         void SoftRemoveRange(List<TEntity> entities);
         Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate);
         IQueryable<TEntity> FindAll(Func<TEntity, bool> predicate);
+        Task Update(TEntity entity, int Id);
+
 
         Task<Pagination<TEntity>> ToPagination(int pageNumber = 0, int pageSize = 10);
     }

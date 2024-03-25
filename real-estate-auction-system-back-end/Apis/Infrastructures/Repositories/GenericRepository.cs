@@ -79,5 +79,16 @@ namespace Infrastructures.Repositories
         public Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate) => _dbSet.SingleOrDefaultAsync(predicate);
 
         public IQueryable<TEntity> FindAll(Func<TEntity, bool> predicate) => _dbSet.Where(predicate).AsQueryable();
+
+        public async Task Update(TEntity entity, int Id)
+        {
+            var existEntity = await GetById(Id);
+            _dbSet.Entry(existEntity).CurrentValues.SetValues(entity);
+            _dbSet.Update(existEntity);
+        }
+        public async Task<TEntity> GetById(int id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
     }
 }
