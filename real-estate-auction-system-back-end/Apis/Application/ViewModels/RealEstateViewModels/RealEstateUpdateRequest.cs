@@ -22,11 +22,5 @@ namespace Application.ViewModels.RealEstateViewModels
         [NotMapped]
         public List<IFormFile>? Image { get; set; } = default!;
 
-        public int AuctionId { get; set; }
-        public DateTime DateSubmited { get; set; }
-
-
-
-
     }
 }

@@ -19,11 +19,6 @@ namespace Application.ViewModels.RealEstateViewModels
         public string Address { get; set; }
         public string Province { get; set; }
         public string Description { get; set; }
-
-        [NotMapped]        
-
-        public DateTime DateSubmited { get; set; }    
-
         public List<IFormFile>? Image { get; set; } = default!;
     }
 }
