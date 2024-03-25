@@ -6,16 +6,20 @@ using Application.Services;
 using Application.ViewModels.RealEstateViewModels;
 using WebAPI.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
+        private readonly IClaimsService _claimsService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IClaimsService claimsService)
         {
             _accountService = accountService;
+            _claimsService = claimsService;
         }
 
         [HttpPost]
@@ -47,6 +51,24 @@ namespace WebAPI.Controllers
             try
             {
                 var response = await _accountService.GetAccounts(pageIndex, pageSize);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAccounts()
+        {
+            try
+            {
+                var response = await _accountService.GetAllAccounts();
                 return Ok(response);
             }
             catch (ArgumentException ex)
@@ -83,6 +105,24 @@ namespace WebAPI.Controllers
             var rs = await _accountService.UpdateAccount(id, request);
             if (rs == null) return NotFound();
             return Ok(rs);
+        }
+
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetAccountById()
+        {
+            try
+            {
+                var response = await _accountService.GetAccountById(_claimsService.GetCurrentUserId);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\Repositories\\Repositories.csproj": {}
+    "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\Repositories\\Repositories.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj": {
+    "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectUniqueName": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj",
         "projectName": "DataAccessLayer",
-        "projectPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\obj\\",
+        "projectPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj",
+        "packagesPath": "C:\\Users\\artua\\.nuget\\packages\\",
+        "outputPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\artua\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,15 +22,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj": {
-                "projectPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj"
+              "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj": {
+                "projectPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj"
               }
             }
           }
@@ -68,21 +63,17 @@
         }
       }
     },
-    "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj": {
+    "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj",
+        "projectUniqueName": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj",
         "projectName": "DataAccessObject",
-        "projectPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\obj\\",
+        "projectPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj",
+        "packagesPath": "C:\\Users\\artua\\.nuget\\packages\\",
+        "outputPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\artua\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -90,7 +81,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -144,21 +134,17 @@
         }
       }
     },
-    "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\Repositories\\Repositories.csproj": {
+    "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\Repositories\\Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\Repositories\\Repositories.csproj",
+        "projectUniqueName": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\Repositories\\Repositories.csproj",
         "projectName": "Repositories",
-        "projectPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\Repositories\\Repositories.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\Repositories\\obj\\",
+        "projectPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\Repositories\\Repositories.csproj",
+        "packagesPath": "C:\\Users\\artua\\.nuget\\packages\\",
+        "outputPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\Repositories\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\artua\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -166,18 +152,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj"
+              "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessLayer\\DataAccessLayer.csproj"
               },
-              "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj": {
-                "projectPath": "C:\\Users\\ADMIN\\Desktop\\back-end\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj"
+              "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj": {
+                "projectPath": "D:\\workspaces\\programBE\\TestAPI\\PRN231PE_SP24_123890_SE160385\\DataAccessObject\\DataAccessObject.csproj"
               }
             }
           }

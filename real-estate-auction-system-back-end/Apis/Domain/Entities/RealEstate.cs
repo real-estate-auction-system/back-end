@@ -24,6 +24,7 @@ namespace Domain.Entities
         public DateTime? EndTime { get; set; }
        
         public RealEstateStatus RealEstateStatus { get; set; } = RealEstateStatus.notYet;
+        [JsonIgnore]
         public virtual IList<RealEstateImage> RealEstateImages { get; set; }
         public int AccountId { get; set; }
         public int TypeOfRealEstateId { get; set; }

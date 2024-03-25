@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Commons;
+using Application.Interfaces;
 using Application.ViewModels.RealEstateViewModels;
 using AutoMapper;
 using Domain.Entities;
@@ -81,12 +82,71 @@ namespace Application.Services
 
         public async Task<List<RealEstate>> GetAll()
         {
-            return await _unitOfWork.RealEstateRepository.GetAllAsync();
+            var realEstates = await _unitOfWork.RealEstateRepository.GetAllRealEstates();
+            return realEstates;
         }
 
         public async Task<RealEstate?> GetByIdAsync(int id)
         {
             return await _unitOfWork.RealEstateRepository.GetByIdAsync(id);
+        }
+
+        public async Task<Pagination<RealEstate>> GetRealEstateByName(int pageIndex, int pageSize, string name)
+        {
+            try
+            {
+                var response = _unitOfWork.RealEstateRepository.FindAll(o => o.Name.Contains(name));
+                if (response == null)
+                {
+                    throw new Exception($"Not found real estate with name {name.ToString()}");
+                }
+                List<RealEstate> result = new List<RealEstate>();
+                foreach (var item in response)
+                {
+                    result.Add(_mapper.Map<RealEstate>(item));
+                }
+                var rs = new Pagination<RealEstate>()
+                {
+                    Items = result,
+                    PageIndex = pageIndex,
+                    PageSize = pageSize,
+                    TotalItemsCount = result.Count,
+                };
+                return rs;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Get list real estate by type id {name.ToString()} error!");
+            }
+        }
+
+        public async Task<Pagination<RealEstate>> GetRealEstateByType(int pageIndex, int pageSize, int typeId)
+        {
+            try
+            {
+                var response = _unitOfWork.RealEstateRepository.FindAll(o => o.TypeOfRealEstateId == typeId);
+                if (response == null)
+                {
+                    throw new Exception($"Not found real estate with type id {typeId.ToString()}");
+                }
+                List<RealEstate> result = new List<RealEstate>();
+                foreach (var item in response)
+                {
+                    result.Add(_mapper.Map<RealEstate>(item));
+                }
+                var rs = new Pagination<RealEstate>()
+                {
+                    Items = result,
+                    PageIndex = pageIndex,
+                    PageSize = pageSize,
+                    TotalItemsCount = result.Count,
+                };
+                return rs;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Get list real estate by type id {typeId.ToString()} error!");
+            }
         }
 
         public async Task Update(RealEstate realEstate)
@@ -118,5 +178,31 @@ namespace Application.Services
             return realEstateExisted;
         }
 
+        public async Task<RealEstate> UpdateRealEstate(RealEstateUpdateRequest request, int Id)
+        {
+            try
+            {
+                RealEstate realEstate = await _unitOfWork.RealEstateRepository.FindAsync(o => o.Id == Id);
+                if (realEstate == null)
+                    throw new Exception($"Not found Real Estate with id {Id.ToString()}");
+
+                var existingRealEstate = _unitOfWork.RealEstateRepository.FindAsync(c => c.Name.Equals(request.Name));
+                if (existingRealEstate != null)
+                    throw new Exception("Name of Real Estate has already been taken");
+                if (request.StartTime > request.EndTime)
+                    throw new Exception("Start Time or End Time is invalid");
+
+                _mapper.Map<RealEstateUpdateRequest, RealEstate>(request, realEstate);
+
+                await _unitOfWork.RealEstateRepository.Update(realEstate, Id);
+                await _unitOfWork.SaveChangeAsync();
+                return realEstate;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Update Real Estate error!!!!!");
+            }
+
+        }
     }
 }

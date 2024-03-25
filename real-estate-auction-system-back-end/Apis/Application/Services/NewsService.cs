@@ -152,6 +152,5 @@ namespace Application.Services
             //return result;
             return await _unitOfWork.NewsRepository.GetByIdAsync(id);
         }
-
     }
 }

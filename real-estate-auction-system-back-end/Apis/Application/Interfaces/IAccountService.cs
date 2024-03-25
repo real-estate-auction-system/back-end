@@ -15,5 +15,6 @@ namespace Application.Interfaces
         Task<Pagination<AccountResponse>> GetAccounts(int pageIndex, int pageSize);
         Task<AccountResponse> GetAccountById(int id);
         Task<AccountResponse> UpdateAccount(int id, UpdateAccountRequest request);
+        Task<List<AccountResponse>> GetAllAccounts();
     }
 }

@@ -129,5 +129,30 @@ namespace Infrastructures.Services
                 throw new Exception("Update account error!");
             }
         }
+
+        public async Task<List<AccountResponse>> GetAllAccounts()
+        {
+            try
+            {
+                var response = await _unitOfWork.AccountRepository.GetAllAsync();
+                List<AccountResponse> items = new List<AccountResponse>();
+                if (response == null)
+                {
+                    throw new Exception("List account is empty!");
+                }
+                else
+                {
+                    foreach (var a in response)
+                    {
+                        items.Add(_mapper.Map<AccountResponse>(a));
+                    }
+                    return items;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get list account error!");
+            }
+        }
     }
 }

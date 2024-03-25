@@ -9,5 +9,6 @@ namespace Application.Repositories
 {
     public interface IRealEstateRepository : IGenericRepository<RealEstate>
     {
+       Task<List<RealEstate>> GetAllRealEstates();
     }
 }

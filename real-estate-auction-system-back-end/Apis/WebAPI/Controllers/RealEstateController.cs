@@ -36,6 +36,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<List<RealEstate>> GetAllRealEstate()
         {
             var realEstates = await _realEstateService.GetAll();
@@ -43,7 +44,7 @@ namespace WebAPI.Controllers
             return realEstates;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetRealEstate")]
         public async Task<IActionResult> GetRealEstate(int id)
         {
             try
@@ -72,7 +73,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            return Ok();
+            return CreatedAtRoute("GetRealEstate", realEstateModel);
         }
 
         [HttpPut("{id}")]
@@ -109,6 +110,48 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpGet("/api/realEstate/getByType/{id}")]
+        public async Task<IActionResult> GetRealEstateByType(int id, [FromRoute] int pageIndex, int pageSize)
+        {
+            try
+            {
+                var response = await _realEstateService.GetRealEstateByType(pageIndex, pageSize, id);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
+        [HttpGet("/api/realEstate/getByName/{name}/name")]
+        public async Task<IActionResult> GetRealEstateByName(string name, [FromRoute] int pageIndex, int pageSize)
+        {
+            try
+            {
+                var response = await _realEstateService.GetRealEstateByName(pageIndex, pageSize, name);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("/api/realEstate/update/{id}/id")]
+        public async Task<ActionResult<RealEstate>> UpdateRealEstate([FromBody] RealEstateUpdateRequest request, int id)
+        {
+            var rs = await _realEstateService.UpdateRealEstate(request, id);
+            if (rs == null) return NotFound();
+            return Ok(rs);
+        }
     }
 }
