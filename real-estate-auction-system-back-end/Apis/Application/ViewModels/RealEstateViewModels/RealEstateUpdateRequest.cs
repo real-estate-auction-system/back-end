@@ -18,17 +18,15 @@ namespace Application.ViewModels.RealEstateViewModels
         public string Address { get; set; }
         public string Province { get; set; }
         public string Description { get; set; }
-<<<<<<< HEAD
+
         [NotMapped]
         public List<IFormFile>? Image { get; set; } = default!;
-=======
+
         public int AuctionId { get; set; }
         public DateTime DateSubmited { get; set; }
-        public int TypeOfRealEstateId { get; set; }
-        
-        public List<IFormFile>? Image { get; set; } = default!;
 
->>>>>>> 5854904ae19c2971cb9618594e9238610640cac8
+
+
 
     }
 }

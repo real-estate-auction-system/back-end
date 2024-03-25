@@ -29,11 +29,8 @@ namespace WebAPI.Controllers
         {
             try
             {
-<<<<<<< HEAD
-               
-=======
 
->>>>>>> 5854904ae19c2971cb9618594e9238610640cac8
+
                 var auction = await _auctionService.GetTodayAuction();
                 if (auction == null)
                 {
@@ -49,10 +46,7 @@ namespace WebAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-<<<<<<< HEAD
-=======
 
->>>>>>> 5854904ae19c2971cb9618594e9238610640cac8
             }
         }
 

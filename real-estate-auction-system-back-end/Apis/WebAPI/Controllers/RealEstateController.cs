@@ -59,11 +59,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-<<<<<<< HEAD
         [Authorize(Roles = "1")]
-=======
-        [Authorize(Roles ="1")]
->>>>>>> 5854904ae19c2971cb9618594e9238610640cac8
         public async Task<IActionResult> CreateRealEstate([FromForm] RealEstateModel realEstateModel)
         {
             try
