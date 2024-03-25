@@ -6,6 +6,7 @@ using Application.ViewModels.RealEstateViewModels;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers
@@ -26,12 +27,23 @@ namespace WebAPI.Controllers
         [HttpGet("TodayAuction")]
         public async Task<IActionResult> GetAll()
         {
-            var auction = await _auctionService.GetTodayAuction();
-            if (auction == null)
+            try
             {
-                throw new Exception("There is no auction for today!");
+                var auction = await _auctionService.GetTodayAuction();
+                if (auction == null)
+                {
+                    throw new Exception("There is no auction for today!");
+                }
+                return Ok(auction);
             }
-            return Ok(auction);
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("UpcomingAuction")]
