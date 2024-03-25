@@ -134,7 +134,6 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
         }
 
-<<<<<<< HEAD
         public async Task<NewsModel> GetNewsAsync(int id)
         {
             var result = new NewsModel();
@@ -179,36 +178,11 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
         }
 
-        public async Task<News?> GetById(int id)
-=======
-        public async Task<News?> GetNewsAsync(int id)
->>>>>>> 91300042ba6aac29ff02b847cbc956db3bdc5b71
-        {
-            //var result = new NewsModel();
-            //var news = await _unitOfWork.NewsRepository.GetByIdAsync(id);
-            //if (news != null)
-            //{
-            //    result.Name = news.Name;
-            //    result.Title = news.Title;
-            //    result.Description = news.Description;
-            //    //result.News = news.image;
-            //    //result.time = news.time;
-            //} else
-            //{
-            //    return null;
-            //}
-            //return result;
-            return await _unitOfWork.NewsRepository.GetByIdAsync(id);
-        }
-<<<<<<< HEAD
-
         public async Task Delete(News news)
         {
             _unitOfWork.NewsRepository.SoftRemove(news);
             await _unitOfWork.SaveChangeAsync();
         }
 
-=======
->>>>>>> 91300042ba6aac29ff02b847cbc956db3bdc5b71
     }
 }
