@@ -10,7 +10,7 @@ namespace Application
         public IRealEstateRepository RealEstateRepository { get; }
 
         public INewsRepository NewsRepository { get; }
-        public INewsImageRepository NewsImageRepository { get; }
+        //public INewsImageRepository NewsImageRepository { get; }
 
 
         public IAuctionRepository AuctionRepository { get; }

@@ -50,31 +50,30 @@ namespace Application.Services
                 // image
                 if (newsModel.Image.Count != 0)
                 {
-                    foreach (var singleImage in newsModel.Image.Select((image, index) => (image, index)))
+                    var singleImage = newsModel.Image.First(); // Lấy ảnh đầu tiên trong danh sách
+
+                    string newImageName = news.Id + "_i0"; // Đổi tên ảnh thành "_i0" vì chỉ có một ảnh
+                    string folderName = $"news/{news.Id}/Image";
+                    string imageExtension = Path.GetExtension(singleImage.FileName);
+                    //Kiểm tra xem có phải là file ảnh không.
+                    string[] validImageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+                    const long maxFileSize = 20 * 1024 * 1024;
+                    if (Array.IndexOf(validImageExtensions, imageExtension.ToLower()) == -1 || singleImage.Length > maxFileSize)
                     {
-                        string newImageName = news.Id + "_i" + singleImage.index;
-                        string folderName = $"news/{news.Id}/Image";
-                        string imageExtension = Path.GetExtension(singleImage.image.FileName);
-                        //Kiểm tra xem có phải là file ảnh không.
-                        string[] validImageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
-                        const long maxFileSize = 20 * 1024 * 1024;
-                        if (Array.IndexOf(validImageExtensions, imageExtension.ToLower()) == -1 || singleImage.image.Length > maxFileSize)
-                        {
-                            throw new Exception("Có chứa file không phải ảnh hoặc quá dung lượng tối đa(>20MB)!");
-                        }
-                        var url = await _firebaseService.UploadFileToFirebaseStorage(singleImage.image, newImageName, folderName);
-                        if (url == null)
-                            throw new Exception("Lỗi khi đăng ảnh lên firebase!");
-
-                        NewsImage newsImage = new NewsImage()
-                        {
-                            NewsId = news.Id,
-                            ImageURL = url
-                        };
-
-                        await _unitOfWork.NewsImageRepository.AddAsync(newsImage);
+                        throw new Exception("Có chứa file không phải ảnh hoặc quá dung lượng tối đa(>20MB)!");
                     }
+                    var url = await _firebaseService.UploadFileToFirebaseStorage(singleImage, newImageName, folderName);
+                    if (url == null)
+                        throw new Exception("Lỗi khi đăng ảnh lên firebase!");
+
+                    News newsImage = new News()
+                    {
+                        NewsImages = news.NewsImages
+                    };
+
+                    await _unitOfWork.NewsRepository.AddAsync(newsImage);
                 }
+
             }
             catch (Exception ex)
             {

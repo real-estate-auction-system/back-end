@@ -258,7 +258,7 @@ namespace Infrastructures.Migrations
 
                     b.ToTable("RealEstateImages");
                 });
-
+            
             modelBuilder.Entity("Domain.Entities.RealtimeAuction", b =>
                 {
                     b.Property<int>("Id")

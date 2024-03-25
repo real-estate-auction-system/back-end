@@ -14,6 +14,7 @@ namespace Infrastructures
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<News> News { get; set; }
+        //public DbSet<NewsImage> NewsImages { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<RealEstate> RealEstates { get; set; }
         public DbSet<RealEstateImage> RealEstateImages { get; set; }
