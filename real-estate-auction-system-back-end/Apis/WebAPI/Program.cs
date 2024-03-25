@@ -38,8 +38,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
-                          //policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
+                         // policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                          policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3001");
                       });
 });
 

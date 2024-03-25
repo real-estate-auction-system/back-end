@@ -27,14 +27,19 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("Pagination")]
-        public async Task<Pagination<News>> GetAll(int pageIndex, int pageSize)
+        public async Task<ActionResult<Pagination<News>>> GetAll(int? pageIndex, int? pageSize)
         {
-            var list = await _newService.GetPaginationAsync(pageIndex, pageSize);
+            // Thiết lập giá trị mặc định cho pageIndex và pageSize nếu chúng là null hoặc rỗng
+            int index = pageIndex ?? 0;
+            int size = pageSize ?? 10;
+
+            var list = await _newService.GetPaginationAsync(index, size);
+            //var list = await _newService.GetPaginationAsync(0, 10);
             if (list.Items.Count == 0)
             {
-                throw new Exception("Khong co gi");
+                return NotFound("Không tìm thấy dữ liệu.");
             }
-            return list;
+            return Ok(list);
         }
 
         [HttpPost]
@@ -63,7 +68,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var news = await _newService.GetNewsAsync(id);
+                var news = await _newService.GetNewsByIdAsync(id);
                 if (news == null) { return NotFound(); }
                 return Ok(news);
             }
