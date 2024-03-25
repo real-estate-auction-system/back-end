@@ -13,7 +13,7 @@ namespace Domain.Entities
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public virtual IList<NewsImage> NewsImages { get; set; }
+        public string NewsImages { get; set; }
 
         //public string image { get; set; }
         public DateTime time { get; set; }
