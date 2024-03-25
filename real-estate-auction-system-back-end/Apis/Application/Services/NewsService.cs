@@ -154,10 +154,7 @@ namespace Application.Services
             //return await _unitOfWork.NewsRepository.GetByIdAsync(id);
         }
 
-<<<<<<< HEAD
-     
 
-=======
         public async Task<News?> UpdateNewsById(int id, News newsModel)
         {
             var newsModelExisted = await _unitOfWork.NewsRepository.GetByIdAsync(id);
@@ -190,6 +187,6 @@ namespace Application.Services
             _unitOfWork.NewsRepository.SoftRemove(news);
             await _unitOfWork.SaveChangeAsync();
         }
->>>>>>> 6d0970b7b96fb46e1ebb741e110aa14459397ed0
+
     }
 }
