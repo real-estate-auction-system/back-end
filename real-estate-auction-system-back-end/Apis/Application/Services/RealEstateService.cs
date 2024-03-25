@@ -81,7 +81,8 @@ namespace Application.Services
 
         public async Task<List<RealEstate>> GetAll()
         {
-            return await _unitOfWork.RealEstateRepository.GetAllAsync();
+            var realEstates = await _unitOfWork.RealEstateRepository.GetAllRealEstates();
+            return realEstates;
         }
 
         public async Task<RealEstate?> GetByIdAsync(int id)

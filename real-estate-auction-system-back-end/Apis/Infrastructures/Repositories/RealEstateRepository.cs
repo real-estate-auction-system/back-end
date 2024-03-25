@@ -12,10 +12,18 @@ namespace Infrastructures.Repositories
 {
     public class RealEstateRepository : GenericRepository<RealEstate>, IRealEstateRepository
     {
+        private readonly AppDbContext _dbContext;
+
         public RealEstateRepository(AppDbContext dbContext)
             : base(dbContext)
         {
+            _dbContext = dbContext;
         }
 
+        public async Task<List<RealEstate>> GetAllRealEstates()
+        {
+            var realEstates = await _dbContext.RealEstates.Include(re => re.RealEstateImages).ToListAsync();
+            return realEstates;
+        }
     }
 }

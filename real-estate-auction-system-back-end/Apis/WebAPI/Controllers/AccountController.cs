@@ -6,6 +6,8 @@ using Application.Services;
 using Application.ViewModels.RealEstateViewModels;
 using WebAPI.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -51,7 +53,7 @@ namespace WebAPI.Controllers
             }
             catch (ArgumentException ex)
             {
-                return NotFound(ex.Message);
+                return Unauthorized();
             }
             catch (Exception ex)
             {
@@ -84,5 +86,6 @@ namespace WebAPI.Controllers
             if (rs == null) return NotFound();
             return Ok(rs);
         }
+
     }
 }

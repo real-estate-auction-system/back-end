@@ -29,6 +29,10 @@ namespace WebAPI.Controllers
         {
             try
             {
+<<<<<<< HEAD
+                ModelState.AddModelError("firstError", "Hôm nay không có buổi đấu giá nào");
+                return ValidationProblem();
+=======
                 var auction = await _auctionService.GetTodayAuction();
                 if (auction == null)
                 {
@@ -43,6 +47,7 @@ namespace WebAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+>>>>>>> 755d21d8ebc20408af49cb22594eb3f2c7483752
             }
         }
 
@@ -53,7 +58,8 @@ namespace WebAPI.Controllers
 
             if (auctions.Count == 0)
             {
-                return NotFound(new { message = "There is no upcoming auction." });
+               ModelState.AddModelError("firstError", "Sắp tới không có buổi đấu giá nào");
+                return ValidationProblem();
             }
 
             return Ok(auctions);
