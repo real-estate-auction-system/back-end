@@ -50,31 +50,30 @@ namespace Application.Services
                 // image
                 if (newsModel.Image.Count != 0)
                 {
-                    foreach (var singleImage in newsModel.Image.Select((image, index) => (image, index)))
+                    var singleImage = newsModel.Image.First(); // Lấy ảnh đầu tiên trong danh sách
+
+                    string newImageName = news.Id + "_i0"; // Đổi tên ảnh thành "_i0" vì chỉ có một ảnh
+                    string folderName = $"news/{news.Id}/Image";
+                    string imageExtension = Path.GetExtension(singleImage.FileName);
+                    //Kiểm tra xem có phải là file ảnh không.
+                    string[] validImageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+                    const long maxFileSize = 20 * 1024 * 1024;
+                    if (Array.IndexOf(validImageExtensions, imageExtension.ToLower()) == -1 || singleImage.Length > maxFileSize)
                     {
-                        string newImageName = news.Id + "_i" + singleImage.index;
-                        string folderName = $"news/{news.Id}/Image";
-                        string imageExtension = Path.GetExtension(singleImage.image.FileName);
-                        //Kiểm tra xem có phải là file ảnh không.
-                        string[] validImageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
-                        const long maxFileSize = 20 * 1024 * 1024;
-                        if (Array.IndexOf(validImageExtensions, imageExtension.ToLower()) == -1 || singleImage.image.Length > maxFileSize)
-                        {
-                            throw new Exception("Có chứa file không phải ảnh hoặc quá dung lượng tối đa(>20MB)!");
-                        }
-                        var url = await _firebaseService.UploadFileToFirebaseStorage(singleImage.image, newImageName, folderName);
-                        if (url == null)
-                            throw new Exception("Lỗi khi đăng ảnh lên firebase!");
-
-                        NewsImage newsImage = new NewsImage()
-                        {
-                            NewsId = news.Id,
-                            ImageURL = url
-                        };
-
-                        await _unitOfWork.NewsImageRepository.AddAsync(newsImage);
+                        throw new Exception("Có chứa file không phải ảnh hoặc quá dung lượng tối đa(>20MB)!");
                     }
+                    var url = await _firebaseService.UploadFileToFirebaseStorage(singleImage, newImageName, folderName);
+                    if (url == null)
+                        throw new Exception("Lỗi khi đăng ảnh lên firebase!");
+
+                    News newsImage = new News()
+                    {
+                        NewsImages = news.NewsImages
+                    };
+
+                    await _unitOfWork.NewsRepository.AddAsync(newsImage);
                 }
+
             }
             catch (Exception ex)
             {
@@ -112,7 +111,7 @@ namespace Application.Services
             newsModelExisted.Name = newsModel.Name;
             newsModelExisted.Title = newsModel.Title;
             newsModelExisted.Description = newsModel.Description;
-            //newsModelExisted.image = newsModel.Im;
+            newsModelExisted.NewsImages = newsModel.NewsImages;
 
             _unitOfWork.NewsRepository.Update(newsModelExisted);
             await _unitOfWork.SaveChangeAsync();
@@ -135,6 +134,7 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
         }
 
+<<<<<<< HEAD
         public async Task<NewsModel> GetNewsAsync(int id)
         {
             var result = new NewsModel();
@@ -180,9 +180,27 @@ namespace Application.Services
         }
 
         public async Task<News?> GetById(int id)
+=======
+        public async Task<News?> GetNewsAsync(int id)
+>>>>>>> 91300042ba6aac29ff02b847cbc956db3bdc5b71
         {
+            //var result = new NewsModel();
+            //var news = await _unitOfWork.NewsRepository.GetByIdAsync(id);
+            //if (news != null)
+            //{
+            //    result.Name = news.Name;
+            //    result.Title = news.Title;
+            //    result.Description = news.Description;
+            //    //result.News = news.image;
+            //    //result.time = news.time;
+            //} else
+            //{
+            //    return null;
+            //}
+            //return result;
             return await _unitOfWork.NewsRepository.GetByIdAsync(id);
         }
+<<<<<<< HEAD
 
         public async Task Delete(News news)
         {
@@ -190,5 +208,7 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
         }
 
+=======
+>>>>>>> 91300042ba6aac29ff02b847cbc956db3bdc5b71
     }
 }

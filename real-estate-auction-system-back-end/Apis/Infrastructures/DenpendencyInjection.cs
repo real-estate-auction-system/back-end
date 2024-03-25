@@ -19,7 +19,7 @@ namespace Infrastructures
             services.AddScoped<IRealEstateImageRepository, RealEstateImageRepository>();
 
             services.AddScoped<INewsRepository, NewsRepository>();
-            services.AddScoped<INewsImageRepository, NewsImageRepository>();
+            //services.AddScoped<INewsImageRepository, NewsImageRepository>();
 
             services.AddScoped<IAuctionRepository, AuctionRepository>();
             services.AddScoped<IRealtimeAuctionRepository, RealtimeAuctionRepository>();
