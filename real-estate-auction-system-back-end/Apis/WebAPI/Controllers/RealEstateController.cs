@@ -58,7 +58,8 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpPost]       
+        [HttpPost]
+        [Authorize(Roles ="1")]
         public async Task<IActionResult> CreateRealEstate([FromForm] RealEstateModel realEstateModel)
         {
             try
@@ -77,6 +78,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> UpdateRealEstate(int id, [FromBody] RealEstateUpdateRequest realEstateModel)
         {
           try
@@ -96,6 +98,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> DeleteRealEstate(int id)
         {
             try

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,16 @@ namespace Application.ViewModels.RealEstateViewModels
         public string Name { get; set; }
         public double Price { get; set; }
         public double StartPrice { get; set; }
+        public double Acreage { get; set; }
+        public string Address { get; set; }
+        public string Province { get; set; }
         public string Description { get; set; }
+        public int AuctionId { get; set; }
         public DateTime DateSubmited { get; set; }
-        public bool IsAvailable { get; set; }
-        public DateTime? StartTime { get; set; }
-        public DateTime? EndTime { get; set; }
+        public int TypeOfRealEstateId { get; set; }
+        
+        public List<IFormFile>? Image { get; set; } = default!;
+
 
     }
 }

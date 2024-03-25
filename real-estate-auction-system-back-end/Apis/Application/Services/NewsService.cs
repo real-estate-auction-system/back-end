@@ -144,7 +144,7 @@ namespace Application.Services
                 result.Name = news.Name;
                 result.Title = news.Title;
                 result.Description = news.Description;
-                result.image = news.image;
+
                 //result.time = news.time;
             } else
             {
@@ -154,37 +154,5 @@ namespace Application.Services
             //return await _unitOfWork.NewsRepository.GetByIdAsync(id);
         }
 
-        public async Task<News?> UpdateNewsModel(int id, News newsModel)
-        {
-            var newsModelExisted = await _unitOfWork.NewsRepository.GetByIdAsync(id);
-            if (newsModelExisted == null)
-            {
-                return null;
-            }
-            newsModelExisted.Name = newsModel.Name;
-            newsModelExisted.Title = newsModel.Title;
-            newsModelExisted.Description = newsModel.Description;
-            newsModelExisted.image = newsModel.image;
-
-            _unitOfWork.NewsRepository.Update(newsModelExisted);
-            await _unitOfWork.SaveChangeAsync();
-            return newsModelExisted;
-        }
-        public async Task Update(News news)
-        {
-            _unitOfWork.NewsRepository.Update(news);
-            await _unitOfWork.SaveChangeAsync();
-        }
-
-        public async Task<News?> GetByIdAsync(int id)
-        {
-            return await _unitOfWork.NewsRepository.GetByIdAsync(id);
-        }
-
-        public async Task DeleteAsync(News news)
-        {
-            _unitOfWork.NewsRepository.SoftRemove(news);
-            await _unitOfWork.SaveChangeAsync();
-        }
     }
 }
