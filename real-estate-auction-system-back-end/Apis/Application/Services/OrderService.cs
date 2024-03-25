@@ -66,28 +66,17 @@ namespace Application.Services
             }
         }
 
-        public async Task<Pagination<OrderResponse>> GetOrderByAccountId(int accountId, int pageIndex, int pageSize)
+        public async Task<List<Order>> GetOrderByAccountId(int accountId)
         {
             try
             {
-                var response = _unitOfWork.OrderRepository.FindAll(o => o.AccountId == accountId);
+                
+                var response = await _unitOfWork.OrderRepository.GetOrderById(accountId);
                 if (response == null)
                 {
-                    throw new Exception($"Not found order of account with id {accountId.ToString()}");
+                    throw new Exception("Không tìm thấy");
                 }
-                List<OrderResponse> result = new List<OrderResponse>();
-                foreach (var item in response)
-                {
-                    result.Add(_mapper.Map<OrderResponse>(item));
-                }
-                var rs = new Pagination<OrderResponse>()
-                {
-                    Items = result,
-                    PageIndex = pageIndex,
-                    PageSize = pageSize,
-                    TotalItemsCount = result.Count,
-                };
-                return rs;
+                return response;
             }
             catch (Exception ex)
             {

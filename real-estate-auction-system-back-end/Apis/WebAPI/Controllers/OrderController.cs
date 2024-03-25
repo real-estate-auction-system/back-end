@@ -13,10 +13,11 @@ namespace WebAPI.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
-
-        public OrderController(IOrderService orderService)
+        private readonly IClaimsService _claimsService;
+        public OrderController(IOrderService orderService, IClaimsService claimsService)
         {
             _orderService = orderService;
+            _claimsService = claimsService;
         }
 
         [HttpPost]
@@ -44,12 +45,12 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("/api/orders/getByAccountId/{id:int}")]
-        public async Task<IActionResult> GetAccounts(int id,[FromRoute] int pageIndex, int pageSize)
+        [HttpGet("AccountId")]
+        public async Task<IActionResult> GetAccounts()
         {
             try
             {
-                var response = await _orderService.GetOrderByAccountId(id, pageIndex, pageSize);
+                var response = await _orderService.GetOrderByAccountId(_claimsService.GetCurrentUserId);
                 return Ok(response);
             }
             catch (ArgumentException ex)

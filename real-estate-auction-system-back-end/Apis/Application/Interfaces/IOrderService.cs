@@ -13,7 +13,7 @@ namespace Application.Interfaces
     {
         Task AddAsync(Order order);
         Task<Pagination<OrderResponse>> GetOrders(int pageIndex, int pageSize);
-        Task<Pagination<OrderResponse>> GetOrderByAccountId(int accountId, int pageIndex, int pageSize);
+        Task<List<Order>> GetOrderByAccountId(int accountId);
         Task<OrderResponse> UpdateOrderStatus(int id);
         Task<OrderResponse> CreateOrder(CreateOrderRequest request);
 
