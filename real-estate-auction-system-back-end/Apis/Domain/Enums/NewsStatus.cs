@@ -8,5 +8,6 @@ namespace Domain.Enums
 {
     public enum NewsStatus
     {
+        disable = 0, enable = 1
     }
 }
