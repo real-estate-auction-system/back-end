@@ -1,4 +1,5 @@
-﻿using Application.Repositories;
+﻿using Application.Commons;
+using Application.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,6 +21,10 @@ namespace Infrastructures.Repositories
         }
 
         public async Task<bool> CheckOrderExited(int accountId, int realEstateId) => await _dbContext.Orders.AnyAsync(u => u.RealEstateId == realEstateId && u.AccountId == accountId);
-
+        public async Task<List<Order>> GetOrderById(int accountId)
+        {
+            var orders = await _dbContext.Orders.Where(x => x.AccountId == accountId).Include(x => x.RealEstate).ToListAsync();
+            return orders;
+        }
     }
 }

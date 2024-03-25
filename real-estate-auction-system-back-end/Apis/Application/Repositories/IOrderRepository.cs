@@ -10,6 +10,6 @@ namespace Application.Repositories
     public interface IOrderRepository : IGenericRepository<Order>
     {
         Task<bool> CheckOrderExited(int accountId, int realEstateId);
-
+        Task<List<Order>> GetOrderById(int accountId);
     }
 }

@@ -14,7 +14,10 @@ namespace Application.Interfaces
         Task<Pagination<News>> GetPaginationAsync(int pageIndex, int pageSize);
         Task AddAsync(NewsModel newsModel, int userId);
 
+
         Task<News?> GetNewsByIdAsync(int id);
+
+
 
         Task Update(News news);
 

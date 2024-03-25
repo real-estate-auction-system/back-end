@@ -44,7 +44,7 @@ namespace Application.Services
             {
                 throw new Exception("Không tìm thấy bất động sản");
             }
-            realEstate.RealEstateStatus = Domain.Enums.RealEstateStatus.onGoing;
+            realEstate.RealEstateStatus = RealEstateStatus.onGoing;
             _unitOfWork.RealEstateRepository.Update(realEstate);
             await _unitOfWork.SaveChangeAsync();
         }

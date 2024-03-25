@@ -19,8 +19,9 @@ namespace Infrastructures.Mappers
             CreateMap<RealEstate, RealEstateModel>().ReverseMap();
             CreateMap<RealEstate, RealEstateUpdateRequest>().ReverseMap();
             CreateMap<News, NewsModel>().ReverseMap();
+            CreateMap<News, NewsModelRequest>().ReverseMap();
 
-            CreateMap<Account, AccountResponse>().ReverseMap();
+            CreateMap<Account, AccountResponse>();
             CreateMap<UpdateAccountRequest, Account>();
             CreateMap<Order, OrderResponse>();
             CreateMap<CreateOrderRequest, Order>();
