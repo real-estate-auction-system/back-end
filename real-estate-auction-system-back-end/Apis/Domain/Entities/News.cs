@@ -12,10 +12,7 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-
-        public string NewsImages { get; set; }
-
-        //public string image { get; set; }
+        public string image { get; set; }
         public DateTime time { get; set; }
         public NewsStatus Status { get; set; }
         public int AccountId { get; set; }

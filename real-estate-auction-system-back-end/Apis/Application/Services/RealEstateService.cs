@@ -91,7 +91,7 @@ namespace Application.Services
 
         public async Task<RealEstate?> GetByIdAsync(int id)
         {
-            return await _unitOfWork.RealEstateRepository.GetByIdAsync(id);
+            return await _unitOfWork.RealEstateRepository.GetEstates(id);
         }
 
         public async Task<Pagination<RealEstate>> GetRealEstateByName(int pageIndex, int pageSize, string name)
