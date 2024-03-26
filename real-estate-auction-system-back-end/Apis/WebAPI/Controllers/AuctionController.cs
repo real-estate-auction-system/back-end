@@ -3,7 +3,10 @@ using Application.Interfaces;
 using Application.Services;
 using Application.ViewModels.AuctionsViewModels;
 using Application.ViewModels.RealEstateViewModels;
+using Application.ViewModels.UserViewModels;
+using Azure.Core;
 using Domain.Entities;
+using Infrastructures.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -29,8 +32,6 @@ namespace WebAPI.Controllers
         {
             try
             {
-
-
                 var auction = await _auctionService.GetTodayAuction();
                 if (auction == null)
                 {
@@ -82,6 +83,81 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        [HttpPost("auction")]
+        public async Task<IActionResult> PostAuction([FromBody] AuctionResponse auction)
+        {
+            try
+            {
+                await _auctionService.CreateAuction(auction);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAuctions([FromRoute] int pageIndex, int pageSize)
+        {
+            try
+            {
+                var response = await _auctionService.GetAuctions(pageIndex, pageSize);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("no-paging")]
+        public async Task<IActionResult> GetAllAuctions()
+        {
+            try
+            {
+                var response = await _auctionService.GetAllAuctions();
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<AuctionResponse>> UpdateAuction([FromBody] AuctionResponse request, int id)
+        {
+            var rs = await _auctionService.UpdateAuction(id, request);
+            if (rs == null) return NotFound();
+            return Ok(rs);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAuction(int id)
+        {
+            try
+            {
+                var rs = await _auctionService.DeleteAuction(id);
+                if (rs == null) return NotFound();
+                return Ok(rs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

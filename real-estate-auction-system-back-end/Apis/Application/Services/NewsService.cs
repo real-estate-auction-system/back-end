@@ -179,5 +179,29 @@ namespace Application.Services
             await _unitOfWork.SaveChangeAsync();
         }
 
+        public async Task<List<NewsModel>> GetAllNews()
+        {
+            try
+            {
+                var response = await _unitOfWork.NewsRepository.GetAllAsync();
+                List<NewsModel> items = new List<NewsModel>();
+                if (response == null)
+                {
+                    throw new Exception("List news is empty!");
+                }
+                else
+                {
+                    foreach (var a in response)
+                    {
+                        items.Add(_mapper.Map<NewsModel>(a));
+                    }
+                    return items;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get list news error!");
+            }
+        }
     }
 }

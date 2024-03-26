@@ -114,5 +114,22 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllNews()
+        {
+            try
+            {
+                var response = await _newService.GetAllNews();
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

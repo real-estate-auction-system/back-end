@@ -26,6 +26,8 @@ namespace Infrastructures.Mappers
             CreateMap<Order, OrderResponse>();
             CreateMap<CreateOrderRequest, Order>();
             CreateMap<RealEstateModel, RealEstate>();
+            CreateMap<Auction, AuctionResponse>();
+            CreateMap<AuctionResponse, Auction>();
         }
     }
 }

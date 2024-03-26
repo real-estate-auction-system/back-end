@@ -8,5 +8,7 @@ namespace Domain.Enums
 {
     public enum AuctionStatus
     {
+        Created = 1,
+        Deleted = 2,
     }
 }
