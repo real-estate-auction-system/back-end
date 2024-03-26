@@ -44,10 +44,8 @@ namespace Application.Services
                 }
                 news.time = DateTime.Now;
                 news.AccountId = userId;
-                await _unitOfWork.NewsRepository.AddAsync(news);
-                await _unitOfWork.SaveChangeAsync();
+               
 
-                // image
                 if (newsModel.Image.Count != 0)
                 {
                     var singleImage = newsModel.Image.First(); // Lấy ảnh đầu tiên trong danh sách
@@ -66,14 +64,11 @@ namespace Application.Services
                     if (url == null)
                         throw new Exception("Lỗi khi đăng ảnh lên firebase!");
 
-                    News newsImage = new News()
-                    {
-                        NewsImages = news.NewsImages
-                    };
-
-                    await _unitOfWork.NewsRepository.AddAsync(newsImage);
+                    news.image = url;
+                   
                 }
-
+                await _unitOfWork.NewsRepository.AddAsync(news);
+                await _unitOfWork.SaveChangeAsync();
             }
             catch (Exception ex)
             {
@@ -111,7 +106,7 @@ namespace Application.Services
             newsModelExisted.Name = newsModel.Name;
             newsModelExisted.Title = newsModel.Title;
             newsModelExisted.Description = newsModel.Description;
-            newsModelExisted.NewsImages = newsModel.NewsImages;
+            newsModelExisted.image = newsModel.image;
 
             _unitOfWork.NewsRepository.Update(newsModelExisted);
             await _unitOfWork.SaveChangeAsync();

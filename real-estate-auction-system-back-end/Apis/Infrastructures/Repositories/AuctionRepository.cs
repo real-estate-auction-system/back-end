@@ -21,7 +21,7 @@ namespace Infrastructures.Repositories
         }
         public async Task<Auction?> GetTodayAuction()
         {
-            var auction = await _dbContext.Auctions.Where(x => x.Date.Date == new DateTime(2024, 3, 3) /*DateTime.Now.Date*/).Include(x => x.RealEstates).FirstOrDefaultAsync();
+            var auction = await _dbContext.Auctions.Where(x => x.Date.Date == DateTime.Now.Date).Include(x => x.RealEstates).FirstOrDefaultAsync();
             return auction;
         }
         public async Task<List<Auction>> GetUpcomingAuctions()
