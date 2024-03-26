@@ -150,7 +150,7 @@ namespace Application.Services
             }
         }
 
-        public async Task<AuctionResponse> CreateAuction(AuctionResponse request)
+        public async Task<AuctionResponse> CreateAuction(AuctionRequest request)
         {
             try
             {
@@ -161,6 +161,7 @@ namespace Application.Services
                     throw new Exception("Title has already been taken");
                 }
                 auction.Title = request.Title;
+                // auction.Date = request.Date;
                 auction.Date = request.Date;
                 auction.AuctionStatus = (Domain.Enums.AuctionStatus)1;
                 auction.CreatorId = _unitOfWork.AccountRepository.FindAsync(a => a.RoleId == 1).Id;
@@ -175,5 +176,23 @@ namespace Application.Services
                 throw new Exception("Create auction error!"); 
             }
         }
+        public async Task<Auction> GetAuctionById(int id)
+        {
+            try
+            {
+                var response = await _unitOfWork.AuctionRepository.GetAuctionByIdAsync(id);
+                if (response == null)
+                {
+                    throw new Exception($"Not found auction with id {id.ToString()}");
+                }
+                return _mapper.Map<Auction>(response);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get auction by id error!");
+            }
+        }
+
     }
+  
 }

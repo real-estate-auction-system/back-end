@@ -11,5 +11,7 @@ namespace Application.Repositories
     {
         Task<Auction?> GetTodayAuction();
         Task<List<Auction>> GetUpcomingAuctions();
+        Task<Auction?> GetAuctionByIdAsync(int id);
+
     }
 }

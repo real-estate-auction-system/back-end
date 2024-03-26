@@ -7,6 +7,7 @@ using Application.ViewModels.UserViewModels;
 using Azure.Core;
 using Domain.Entities;
 using Infrastructures.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -28,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("TodayAuction")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetTodayAuction()
         {
             try
             {
@@ -52,6 +53,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("UpcomingAuction")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> GetUpcomingAuction()
         {
             var auctions = await _auctionService.GetUpcomingAuctions();
@@ -84,7 +86,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("auction")]
-        public async Task<IActionResult> PostAuction([FromBody] AuctionResponse auction)
+        [Authorize(Roles = "1")]
+        public async Task<IActionResult> PostAuction([FromForm] AuctionRequest auction)
         {
             try
             {
@@ -138,7 +141,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<AuctionResponse>> UpdateAuction([FromBody] AuctionResponse request, int id)
+        [Authorize(Roles = "1")]
+        public async Task<ActionResult<AuctionResponse>> UpdateAuction([FromForm] AuctionResponse request, int id)
         {
             var rs = await _auctionService.UpdateAuction(id, request);
             if (rs == null) return NotFound();
@@ -153,6 +157,25 @@ namespace WebAPI.Controllers
                 var rs = await _auctionService.DeleteAuction(id);
                 if (rs == null) return NotFound();
                 return Ok(rs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetAuctionById(int id)
+        {
+            try
+            {
+                var response = await _auctionService.GetAuctionById(id);
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {

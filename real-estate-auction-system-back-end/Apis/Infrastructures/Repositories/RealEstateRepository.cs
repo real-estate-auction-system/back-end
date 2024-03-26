@@ -25,10 +25,5 @@ namespace Infrastructures.Repositories
             var realEstates = await _dbContext.RealEstates.Include(re => re.RealEstateImages).ToListAsync();
             return realEstates;
         }
-        public async Task<RealEstate> GetEstates(int id)
-        {
-            var realEstates = await _dbContext.RealEstates.Where(x => x.Id == id).Include(re => re.RealEstateImages).FirstOrDefaultAsync();
-            return realEstates;
-        }
     }
 }

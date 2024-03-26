@@ -37,7 +37,7 @@ namespace Application.Services
                 realEstate.AccountId = userId;
                 realEstate.RealEstateStatus = Domain.Enums.RealEstateStatus.notYet;
                 realEstate.TypeOfRealEstateId = 1;
-                realEstate.AuctionId = 1;
+                //realEstate.AuctionId = 2;
                 realEstate.DateSubmited = DateTime.Now.Date;
                 await _unitOfWork.RealEstateRepository.AddAsync(realEstate);
                 await _unitOfWork.SaveChangeAsync();
@@ -91,7 +91,7 @@ namespace Application.Services
 
         public async Task<RealEstate?> GetByIdAsync(int id)
         {
-            return await _unitOfWork.RealEstateRepository.GetEstates(id);
+            return await _unitOfWork.RealEstateRepository.GetByIdAsync(id);
         }
 
         public async Task<Pagination<RealEstate>> GetRealEstateByName(int pageIndex, int pageSize, string name)
@@ -173,7 +173,7 @@ namespace Application.Services
             realEstateExisted.Address = realEstate.Address;
             realEstateExisted.Province =realEstate.Province;
             realEstateExisted.Description = realEstate.Description;
-            realEstateExisted.AuctionId = 1;
+            realEstateExisted.AuctionId = realEstate.AuctionId;
 
             _unitOfWork.RealEstateRepository.Update(realEstateExisted);
             await _unitOfWork.SaveChangeAsync();

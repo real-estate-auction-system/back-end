@@ -19,6 +19,13 @@ namespace Infrastructures.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public async Task<Auction?> GetAuctionByIdAsync(int id)
+        {
+            var auction = await _dbContext.Auctions.Include(x => x.RealEstates).FirstOrDefaultAsync(x => x.Id == id);
+            return auction;
+        }
+
         public async Task<Auction?> GetTodayAuction()
         {
             var auction = await _dbContext.Auctions.Where(x => x.Date.Date == DateTime.Now.Date).Include(x => x.RealEstates).FirstOrDefaultAsync();

@@ -79,7 +79,7 @@ namespace WebAPI.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "1")]
-        public async Task<IActionResult> UpdateRealEstate(int id, [FromBody] RealEstateUpdateRequest realEstateModel)
+        public async Task<IActionResult> UpdateRealEstate(int id, [FromForm] RealEstateUpdateRequest realEstateModel)
         {
           try
             {

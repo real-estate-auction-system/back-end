@@ -63,12 +63,12 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("/api/accounts/getAllAccounts/{id:int}")]
-        public async Task<IActionResult> GetAllAccounts(int id)
+        [HttpGet]
+        public async Task<IActionResult> GetAllAccounts()
         {
             try
             {
-                var response = await _accountService.GetAllAccounts(id);
+                var response = await _accountService.GetAllAccounts();
                 return Ok(response);
             }
             catch (ArgumentException ex)

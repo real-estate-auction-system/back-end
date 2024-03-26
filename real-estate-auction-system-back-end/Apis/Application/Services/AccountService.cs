@@ -54,7 +54,7 @@ namespace Infrastructures.Services
                 FullName = userObject.FullName,
                 Gender = userObject.Gender,
                 Phone = userObject.Phone,
-                RoleId = 2,
+                RoleId = 1,
             };
 
             await _unitOfWork.AccountRepository.AddAsync(newAccount);
@@ -130,7 +130,7 @@ namespace Infrastructures.Services
             }
         }
 
-        public async Task<List<AccountResponse>> GetAllAccounts(int Id)
+        public async Task<List<AccountResponse>> GetAllAccounts()
         {
             try
             {
@@ -144,10 +144,7 @@ namespace Infrastructures.Services
                 {
                     foreach (var a in response)
                     {
-                        if (a.Id != Id)
-                        {
-                            items.Add(_mapper.Map<AccountResponse>(a));
-                        }
+                        items.Add(_mapper.Map<AccountResponse>(a));
                     }
                     return items;
                 }

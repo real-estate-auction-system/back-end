@@ -22,6 +22,8 @@ namespace Application.Interfaces
         Task<Pagination<AuctionResponse>> GetAuctions(int pageIndex, int pageSize);
         Task<AuctionResponse> UpdateAuction(int id, AuctionResponse request);
         Task<dynamic> DeleteAuction(int id);
-        Task<AuctionResponse> CreateAuction(AuctionResponse request);
+        Task<AuctionResponse> CreateAuction(AuctionRequest request);
+
+        Task<Auction> GetAuctionById(int id);
     }
 }

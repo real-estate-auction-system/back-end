@@ -19,6 +19,10 @@ namespace Application.ViewModels.RealEstateViewModels
         public string Address { get; set; }
         public string Province { get; set; }
         public string Description { get; set; }
+        public int AuctionId { get; set; }
+
+
+        [NotMapped]
         public List<IFormFile>? Image { get; set; } = default!;
     }
 }

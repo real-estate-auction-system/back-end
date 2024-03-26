@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Post([FromForm] NewsModel newsModel)
+        public async Task<IActionResult> Post([FromBody] NewsModel newsModel)
         {
             try
             {
