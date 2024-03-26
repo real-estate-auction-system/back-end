@@ -130,7 +130,7 @@ namespace Infrastructures.Services
             }
         }
 
-        public async Task<List<AccountResponse>> GetAllAccounts()
+        public async Task<List<AccountResponse>> GetAllAccounts(int Id)
         {
             try
             {
@@ -144,7 +144,10 @@ namespace Infrastructures.Services
                 {
                     foreach (var a in response)
                     {
-                        items.Add(_mapper.Map<AccountResponse>(a));
+                        if (a.Id != Id)
+                        {
+                            items.Add(_mapper.Map<AccountResponse>(a));
+                        }
                     }
                     return items;
                 }

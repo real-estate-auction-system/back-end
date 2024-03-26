@@ -1,5 +1,7 @@
-﻿using Application.ViewModels.AuctionsViewModels;
+﻿using Application.Commons;
+using Application.ViewModels.AuctionsViewModels;
 using Application.ViewModels.RealEstateViewModels;
+using Application.ViewModels.UserViewModels;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,5 +17,11 @@ namespace Application.Interfaces
         Task AddAsync(AuctionModel auctionModel, int userId);
 
         Task<List<Auction>> GetUpcomingAuctions();
+
+        Task<List<AuctionResponse>> GetAllAuctions();
+        Task<Pagination<AuctionResponse>> GetAuctions(int pageIndex, int pageSize);
+        Task<AuctionResponse> UpdateAuction(int id, AuctionResponse request);
+        Task<dynamic> DeleteAuction(int id);
+        Task<AuctionResponse> CreateAuction(AuctionResponse request);
     }
 }

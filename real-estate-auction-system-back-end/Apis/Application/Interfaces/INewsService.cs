@@ -26,5 +26,6 @@ namespace Application.Interfaces
         Task DeleteAsync(News news);
 
         Task<News?> GetByIdAsync(int id);
+        Task<List<NewsModel>> GetAllNews();
     }
 }
