@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
                     throw new Exception("Khong tim thay san pham");
                 }
                 realEstate.StartTime = DateTime.Now;
-                realEstate.EndTime = DateTime.Now.AddSeconds(30);
+                realEstate.EndTime = DateTime.Now.AddMinutes(3);
                 await _realEstateService.Update(realEstate);
                 await _hubContext.Clients.All.SendAsync("AuctionStarted", CurrentPrice);
                 await _realtimeAuctionService.StartAuction(realEstateId);

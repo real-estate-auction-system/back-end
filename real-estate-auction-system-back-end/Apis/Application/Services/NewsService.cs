@@ -44,9 +44,9 @@ namespace Application.Services
                 }
                 news.time = DateTime.Now;
                 news.AccountId = userId;
-               
+                news.Status = 0;
 
-                if (newsModel.Image.Count != 0)
+                if (newsModel.Image != null)
                 {
                     var singleImage = newsModel.Image.First(); // Lấy ảnh đầu tiên trong danh sách
 
